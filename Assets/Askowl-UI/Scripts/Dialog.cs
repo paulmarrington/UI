@@ -10,50 +10,65 @@ public class Dialog : MonoBehaviour {
   private string buttonPressed;
   private Canvas canvas;
 
-  public void Start () {
-    canvas = gameObject.GetComponent<Canvas> ();
-    message.text = "";
-    foreach (Button button in buttons) {
-      button.GetComponentInChildren<Text> ().text = "";
+  static public Dialog Instance(string gameObjectName) {
+    GameObject go = GameObject.Find(gameObjectName);
+    if (go == null) {
+      Debug.LogError("Scene requires GameObject '" + gameObjectName + "'");
+      return null;
+    } else {
+      Dialog dialog = go.GetComponent<Dialog>();
+      if (dialog == null) {
+        Debug.LogError("GameObject '" + gameObjectName + "' must have a Dialog script attached");
+      }
+      return dialog;
     }
   }
 
-  public void Buttons (params string[] buttonTexts) {
+
+  public void Start() {
+    canvas = gameObject.GetComponent<Canvas>();
+    message.text = "";
+    foreach (Button button in buttons) {
+      button.GetComponentInChildren<Text>().text = "";
+    }
+  }
+
+  public void Buttons(params string[] buttonTexts) {
     for (int i = 0; i < buttonTexts.Length; i++) {
       if (i < buttons.Length) {
-        buttons [i].gameObject.SetActive (buttonTexts [i] != null && buttonTexts [i].Length > 0);
+        buttons [i].gameObject.SetActive(buttonTexts [i] != null && buttonTexts [i].Length > 0);
         if (buttons [i].enabled) {
-          buttons [i].GetComponentInChildren<Text> ().text = buttonTexts [i];
+          buttons [i].GetComponentInChildren<Text>().text = buttonTexts [i];
         }
       }
     }
   }
 
-  public void PressButton (Button button) {
+  public void PressButton(Button button) {
     buttonPressed = button.name;
   }
 
-  public void Show (string text, params string[] buttonTexts) {
-    Buttons (buttonTexts);
+  public void Show(string text, params string[] buttonTexts) {
+    Buttons(buttonTexts);
     buttonPressed = null;
     message.text = text;
     canvas.enabled = true;
   }
 
-  public IEnumerator Activate (string text, params string[] buttonTexts) {
-    Show (text, buttonTexts);
-    return Wait ();
+  public IEnumerator Activate(string text, params string[] buttonTexts) {
+    Show(text, buttonTexts);
+    return Wait();
   }
 
-  public void Hide () {
+  public void Hide() {
     canvas.enabled = false;
   }
 
-  public IEnumerator Wait () {
+  public IEnumerator Wait() {
     while (buttonPressed == null) {
       yield return null;
     }
-    Hide ();
+    Hide();
   }
 
   public string action { get { return buttonPressed; } }
