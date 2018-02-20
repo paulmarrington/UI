@@ -10,6 +10,11 @@ public class Dialog : MonoBehaviour {
   private string buttonPressed;
   private Canvas canvas;
 
+  /*
+   * When I try and cache dialog loaded in OnEnable, the reference becomes destroyed.
+   * Peculiar since it has the same ID. Probably something to do with it being a prefab.
+   * The solution/workaround I chose was to find it when I need it.
+   */
   static public Dialog Instance(string gameObjectName) {
     GameObject go = GameObject.Find(gameObjectName);
     if (go == null) {
@@ -24,7 +29,6 @@ public class Dialog : MonoBehaviour {
     }
   }
 
-
   public void Start() {
     canvas = gameObject.GetComponent<Canvas>();
     message.text = "";
@@ -34,12 +38,12 @@ public class Dialog : MonoBehaviour {
   }
 
   public void Buttons(params string[] buttonTexts) {
-    for (int i = 0; i < buttonTexts.Length; i++) {
-      if (i < buttons.Length) {
-        buttons [i].gameObject.SetActive(buttonTexts [i] != null && buttonTexts [i].Length > 0);
-        if (buttons [i].enabled) {
-          buttons [i].GetComponentInChildren<Text>().text = buttonTexts [i];
-        }
+    for (int i = 0; i < buttons.Length; i++) {
+      if ((i < buttonTexts.Length) && (buttonTexts [i] != null) && (buttonTexts [i].Length > 0)) {
+        buttons [i].gameObject.SetActive(true);
+        buttons [i].GetComponentInChildren<Text>().text = buttonTexts [i];
+      } else {
+        buttons [i].gameObject.SetActive(false);
       }
     }
   }

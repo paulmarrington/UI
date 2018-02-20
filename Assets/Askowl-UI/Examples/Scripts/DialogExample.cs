@@ -21,7 +21,7 @@ public class DialogExample : MonoBehaviour {
   IEnumerator ActivateDialog() {
     Dialog dialog = Dialog.Instance("Dialog Example");
     yield return dialog.Activate(
-      "Now is the time for all good men to come to the aid of the party",
+      "<color=#ff000088>Now</color> is the time for all good <b>men</b> to come to the aid of the <i>party</i>",
       "Yes Sir",
       "Not Now");
     if (dialog.action == "Yes") {

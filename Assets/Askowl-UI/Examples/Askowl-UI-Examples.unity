@@ -418,6 +418,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114629636659738622, guid: 5ab05742247ac461db3a6aa3ca2ca218,
+        type: 2}
+      propertyPath: buttons.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 224666818061823128, guid: 5ab05742247ac461db3a6aa3ca2ca218,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -513,11 +518,26 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 9cd60f8a11dbb10449c15fdc8e067160, type: 2}
+    - target: {fileID: 95046025439506838, guid: 5ab05742247ac461db3a6aa3ca2ca218,
+        type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9cd60f8a11dbb10449c15fdc8e067160, type: 2}
     - target: {fileID: 95639753196373392, guid: 5ab05742247ac461db3a6aa3ca2ca218,
         type: 2}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 9cd60f8a11dbb10449c15fdc8e067160, type: 2}
+    - target: {fileID: 114629636659738622, guid: 5ab05742247ac461db3a6aa3ca2ca218,
+        type: 2}
+      propertyPath: buttons.Array.data[2]
+      value: 
+      objectReference: {fileID: 1177217589}
+    - target: {fileID: 114386841411425444, guid: 5ab05742247ac461db3a6aa3ca2ca218,
+        type: 2}
+      propertyPath: m_IgnoreReversedGraphics
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ab05742247ac461db3a6aa3ca2ca218, type: 2}
   m_IsPrefabParent: 0
@@ -828,6 +848,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 964557636}
+--- !u!114 &1177217589 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114368812905875584, guid: 5ab05742247ac461db3a6aa3ca2ca218,
+    type: 2}
+  m_PrefabInternal: {fileID: 233998938}
+  m_Script: {fileID: 1392445389, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1181922977
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,7 +1126,7 @@ GameObject:
   - component: {fileID: 1421768335}
   - component: {fileID: 1421768334}
   m_Layer: 5
-  m_Name: Dialog Example
+  m_Name: Dialog Example Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

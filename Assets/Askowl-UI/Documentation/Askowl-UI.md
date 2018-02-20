@@ -2,6 +2,68 @@
 [TOC]
 > Read the code in the Examples Folder.
 
+## Dialog
+
+***Dialog.cs*** provides similar functionality to a dialog box on Windows, OS X or the web. It displays some rich text and a series of buttons. You provide the look and feel while ***Dialog.cs*** provides the functionality.
+
+### The Dialog GameObject
+
+Drag the sample prefab in *Askowl-UI/Examples/Prefab* and modify it to make your own.
+
+![DialogExample](DialogExample.png)
+
+In this prefab, the root game object is a canvas with the ***Dialog*** script attached. Drag each of the ***Button*** game objects into the ***Buttons*** array. Drag the Text object inside the message panel to the ***Message*** field.
+
+![Canvas](Canvas.png)
+
+Everything else is just icing. The screen cover makes the dialogue modal. Game action will continue behind unless you change the time scale to zero. In this example, two buttons are set by the script while the dialogue box has room for three buttons. The third remains hidden.
+
+### Using the *Dialog* Script
+
+Fetch an instance of the dialogue script when you need it. Do not cache it.
+
+```C#
+Dialog dialog = Dialog.Instance("Dialog Example");
+```
+
+ This function will return *null* if it can't find the named game object or the dialogue script attached. The log receives an error message.
+
+#### Synchronous Activation
+
+Most of the time you will want to display a message and wait for the player to respond by pressing one of the buttons. `Activate` takes one string for the news and one for each button to be displayed. Run inside a coroutine.
+
+```C#
+yield return dialog.Activate(message, "Yes Sir", "Not Now");
+```
+
+#### Asynchronous Display
+
+If your use case requires other processing, such as terminating after a specific time without a response, use `Show`, `action` and `Hide`.
+
+```c#
+dialog.Show(message, "Yes Sir", "Not Now");
+float endTime = Time.realtimeSinceStartup + 30.0f // 30 seconds
+while (dialog.action == null && Time.realtimeSinceStartup < endTime) {
+  yield return null;
+}
+```
+
+#### Acting on Player Response
+
+`Dialog.action`is a string containing the name of the game object that is the pressed button. Note that it is not the text of the button as that may change.
+
+```C#
+if (dialog.action == "Yes") {
+  Debug.Log("Affirmative");
+} else if (dialog.action == "No") {
+  Debug.Log("Negative");
+} else {
+  Debug.LogError("Unexpected button: '" + dialog.action + "'");
+}
+```
+
+And that is all there is to it. Have fun.
+
 ## Scroller
 
 A ```Scroller``` is a class that allows a content 2D rectangular region to move through a viewport rectangle in a defined direction and at a defined speed.
