@@ -1,39 +1,43 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D;
 using System;
 using System.Linq;
 
 namespace Sprites {
-  public class Cache {
+  using JetBrains.Annotations;
 
-    static Dictionary<string, Cache> atlases = new Dictionary<string, Cache> ();
+  public sealed class Cache {
+    private static readonly Dictionary<string, Cache> Atlases = new Dictionary<string, Cache>();
 
-    public Dictionary<string, Sprite> sprite = new Dictionary<string, Sprite> ();
+    public readonly Dictionary<string, Sprite> Sprite = new Dictionary<string, Sprite>();
 
-    public static Cache Atlas(SpriteAtlas atlas) {
-      if (!atlases.ContainsKey(atlas.name)) {
-        Cache cache = new Cache (atlas);
-        atlases.Add(atlas.name, cache);
-      }
-      return atlases [atlas.name];
+    public static Cache Atlas([NotNull] SpriteAtlas atlas) {
+      if (Atlases.ContainsKey(key: atlas.name)) return Atlases[key: atlas.name];
+
+      Cache cache = new Cache(atlas: atlas);
+      Atlases.Add(key: atlas.name, value: cache);
+
+      return Atlases[key: atlas.name];
     }
 
-    Cache(SpriteAtlas atlas) {
+    private Cache([NotNull] SpriteAtlas atlas) {
       Sprite[] sprites = new Sprite[atlas.spriteCount];
-      atlas.GetSprites(sprites);
+      atlas.GetSprites(sprites: sprites);
+
       foreach (Sprite entry in sprites) {
-        int index = entry.name.IndexOf("(");
+        int index = entry.name.IndexOf(value: "(", comparisonType: StringComparison.Ordinal);
+
         if (index >= 0) {
-          entry.name = entry.name.Substring(0, index);
+          entry.name = entry.name.Substring(startIndex: 0, length: index);
         }
-        sprite [entry.name] = entry;
+
+        Sprite[key: entry.name] = entry;
       }
     }
 
-    public override String ToString() {
-      return String.Join(",", sprite.Select(d => d.Key).ToArray());
+    public override string ToString() {
+      return string.Join(separator: ",", value: Sprite.Select(selector: d => d.Key).ToArray());
     }
   }
 }

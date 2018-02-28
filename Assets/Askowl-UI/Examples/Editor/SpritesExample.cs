@@ -14,18 +14,18 @@ public sealed class SpritesExample : MonoBehaviour {
 
     Sprites.Cache cache = Sprites.Cache.Atlas(atlas: SpriteAtlas);
 
-    Assert.IsTrue(condition: cache.sprite.ContainsKey(key: "Attack_1"),
+    Assert.IsTrue(condition: cache.Sprite.ContainsKey(key: "Attack_1"),
                   message: "Attack_1 missing");
 
-    Assert.IsFalse(condition: cache.sprite.ContainsKey(key: "Attack_6"),
+    Assert.IsFalse(condition: cache.Sprite.ContainsKey(key: "Attack_6"),
                    message: "Attack_6 exists");
 
-    Assert.AreEqual(expected: cache.sprite[key: "Attack_1"].name, actual: "Attack_1",
+    Assert.AreEqual(expected: cache.Sprite[key: "Attack_1"].name, actual: "Attack_1",
                     message: "Sprite Name incorrect");
 
     string sprites = string.Join(
       separator: ", ",
-      value: new List<string>(collection: cache.sprite.Keys)
+      value: new List<string>(collection: cache.Sprite.Keys)
             .Select(selector: x => x.ToString()).ToArray());
 
     Debug.Log(message: "Atlas contains: " + sprites);
@@ -37,7 +37,7 @@ public sealed class SpritesExample : MonoBehaviour {
     Assert.NotNull(anObject: SpriteAtlas);
 
     Sprites.Cache cache   = Sprites.Cache.Atlas(atlas: SpriteAtlas);
-    Sprite        attack1 = cache.sprite[key: "Attack_1"];
+    Sprite        attack1 = cache.Sprite[key: "Attack_1"];
 
     Texture2D texture1A = Sprites.Contents.Texture(sprite: attack1);
     Assert.NotNull(anObject: texture1A);
