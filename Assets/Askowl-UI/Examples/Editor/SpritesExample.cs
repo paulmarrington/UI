@@ -1,43 +1,52 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TestTools;
 using NUnit.Framework;
 using UnityEngine.U2D;
 using System.Linq;
+using JetBrains.Annotations;
 
-public class SpritesExample : MonoBehaviour {
-  public SpriteAtlas spriteAtlas;
+public sealed class SpritesExample : MonoBehaviour {
+  public SpriteAtlas SpriteAtlas;
 
+  [UsedImplicitly]
   public void SpritesCacheTest() {
-    Assert.NotNull(spriteAtlas);
+    Assert.NotNull(anObject: SpriteAtlas);
 
-    Sprites.Cache cache = Sprites.Cache.Atlas(spriteAtlas);
+    Sprites.Cache cache = Sprites.Cache.Atlas(atlas: SpriteAtlas);
 
-    Assert.IsTrue(cache.sprite.ContainsKey("Attack_1"), "Attack_1 missing");
-    Assert.IsFalse(cache.sprite.ContainsKey("Attack_6"), "Attack_6 exists");
+    Assert.IsTrue(condition: cache.sprite.ContainsKey(key: "Attack_1"),
+                  message: "Attack_1 missing");
 
-    Assert.AreEqual(cache.sprite ["Attack_1"].name, "Attack_1", "Sprite Name incorrect");
+    Assert.IsFalse(condition: cache.sprite.ContainsKey(key: "Attack_6"),
+                   message: "Attack_6 exists");
 
-    string sprites = string.Join(", ", new List<string> (cache.sprite.Keys).Select(x => x.ToString()).ToArray());
-    Debug.Log("Atlas contains: " + sprites);
-    Debug.Log("Sprites.Cache works as expected");
+    Assert.AreEqual(expected: cache.sprite[key: "Attack_1"].name, actual: "Attack_1",
+                    message: "Sprite Name incorrect");
+
+    string sprites = string.Join(
+      separator: ", ",
+      value: new List<string>(collection: cache.sprite.Keys)
+            .Select(selector: x => x.ToString()).ToArray());
+
+    Debug.Log(message: "Atlas contains: " + sprites);
+    Debug.Log(message: "Sprites.Cache works as expected");
   }
 
+  [UsedImplicitly]
   public void SpritesContentsTest() {
-    Assert.NotNull(spriteAtlas);
+    Assert.NotNull(anObject: SpriteAtlas);
 
-    Sprites.Cache cache = Sprites.Cache.Atlas(spriteAtlas);
-    Sprite attack1 = cache.sprite ["Attack_1"];
+    Sprites.Cache cache   = Sprites.Cache.Atlas(atlas: SpriteAtlas);
+    Sprite        attack1 = cache.sprite[key: "Attack_1"];
 
-    Texture2D texture1a = Sprites.Contents.Texture(attack1);
-    Assert.NotNull(texture1a);
+    Texture2D texture1A = Sprites.Contents.Texture(sprite: attack1);
+    Assert.NotNull(anObject: texture1A);
 
-    Texture2D texture1b = Sprites.Contents.Texture(spriteAtlas, "Attack_1");
-    Assert.NotNull(texture1b);
+    Texture2D texture1B = Sprites.Contents.Texture(atlas: SpriteAtlas, name: "Attack_1");
+    Assert.NotNull(anObject: texture1B);
 
-    Assert.AreEqual(texture1a.imageContentsHash, texture1b.imageContentsHash);
+    Assert.AreEqual(expected: texture1A.imageContentsHash, actual: texture1B.imageContentsHash);
 
-    Debug.Log("Sprites.Contents works as expected");
+    Debug.Log(message: "Sprites.Contents works as expected");
   }
 }

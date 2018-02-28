@@ -1,26 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using JetBrains.Annotations;
 using UnityEngine;
 
-public class SpritesFullScreenExample : Sprites.FullScreen {
-
-  // Use this for initialization
-  void Start() {
-		
-  }
-	
-  // Update is called once per frame
-  void Update() {
-    if (Input.GetKeyDown("space")) {
-      gameObject.SetActive(false);
+public sealed class SpritesFullScreenExample : Sprites.FullScreen {
+  private void Update() {
+    if (Input.GetKeyDown(name: "space")) {
+      gameObject.SetActive(value: false);
     }
   }
 
-  public void ShowFullScreen() {
-    if (gameObject.activeSelf) {
-      gameObject.SetActive(false);
-    } else {
-      gameObject.SetActive(true);
-    }
-  }
+  [UsedImplicitly]
+  public void ShowFullScreen() { gameObject.SetActive(value: !gameObject.activeSelf); }
 }

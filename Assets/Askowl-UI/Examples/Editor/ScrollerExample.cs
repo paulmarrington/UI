@@ -1,33 +1,36 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using JetBrains.Annotations;
 using UnityEngine;
 
-public class ScrollerExample : MonoBehaviour {
+public sealed class ScrollerExample : MonoBehaviour {
+  public GameObject Viewport;
+  public GameObject Content;
+  public int        PixelsPerSecond = 100;
 
-  public GameObject viewport;
-  public GameObject content;
-  public int pixelsPerSecond = 100;
+  private Scroller scroller;
+  private bool     active;
 
-  Scroller scroller;
-  bool active = false;
+  private void Start() {
+    scroller = new Scroller(viewport: Viewport.GetComponent<RectTransform>(),
+                            content: Content.GetComponent<RectTransform>()) {
+      step = {x = -1, y = 1}
+    };
 
-  void Start() {
-    scroller = new Scroller (viewport.GetComponent<RectTransform>(), content.GetComponent<RectTransform>());
-    scroller.step.x = -1; // moves left to right
-    scroller.step.y = 1; // moves bottom to top
+    // moves left to right
+    // moves bottom to top
   }
 
-  void Update() {
+  private void Update() {
     if (active) {
-      if (!scroller.Step(pixelsPerSecond * Time.fixedUnscaledDeltaTime)) {
-        viewport.SetActive(false);
+      if (!scroller.Step(scale: PixelsPerSecond * Time.fixedUnscaledDeltaTime)) {
+        Viewport.SetActive(value: false);
         active = false;
       }
     }
   }
 
+  [UsedImplicitly]
   public void ButtonPressed() {
-    viewport.SetActive(true);
+    Viewport.SetActive(value: true);
     active = true;
   }
 }

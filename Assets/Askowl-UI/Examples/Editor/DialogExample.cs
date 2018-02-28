@@ -1,35 +1,31 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
-public class DialogExample : MonoBehaviour {
-  Dialog dialog;
+public sealed class DialogExample : MonoBehaviour {
+  private Dialog dialog;
 
-  // Use this for initialization
-  void Start() {
-  }
-	
-  // Update is called once per frame
-  void Update() {
-		
-  }
+  [UsedImplicitly]
+  public void ActivateButtonPressed() { StartCoroutine(routine: ActivateDialog()); }
 
-  public void ActivateButtonPressed() {
-    StartCoroutine(ActivateDialog());
-  }
+  private static IEnumerator ActivateDialog() {
+    Dialog dialogInstance = Dialog.Instance(gameObjectName: "Dialog Example");
 
-  IEnumerator ActivateDialog() {
-    Dialog dialog = Dialog.Instance("Dialog Example");
-    yield return dialog.Activate(
+    yield return dialogInstance.Activate(
       "<color=#ff000088>Now</color> is the time for all good <b>men</b> to come to the aid of the <i>party</i>",
       "Yes Sir",
       "Not Now");
-    if (dialog.action == "Yes") {
-      Debug.Log("Affirmative");
-    } else if (dialog.action == "No") {
-      Debug.Log("Negative");
-    } else {
-      Debug.LogError("Unexpected button: '" + dialog.action + "'");
+
+    switch (dialogInstance.action) {
+      case "Yes":
+        Debug.Log(message: "Affirmative");
+        break;
+      case "No":
+        Debug.Log(message: "Negative");
+        break;
+      default:
+        Debug.LogError(message: "Unexpected button: '" + dialogInstance.action + "'");
+        break;
     }
   }
 }
