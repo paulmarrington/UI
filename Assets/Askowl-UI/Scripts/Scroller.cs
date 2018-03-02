@@ -1,49 +1,51 @@
+using JetBrains.Annotations;
 using UnityEngine;
-using System.Collections;
 
-public class Scroller {
-  public RectTransform viewport;
-  public RectTransform content;
-  public Vector2 step = new Vector2 (0, 0);
+public sealed class Scroller {
+  private readonly RectTransform content;
 
-  private Vector3 startPosition;
-  private bool approaching;
-  private Rect viewportRect;
+  public Vector2 StepSize = new Vector2(x: 0, y: 0);
 
-  public Scroller(RectTransform viewport, RectTransform content) {
-    this.viewport = viewport;
-    this.content = content;
+  private readonly Vector3 startPosition;
+  private          bool    approaching;
+  private          Rect    viewportRect;
+
+  public Scroller([NotNull] RectTransform content, [NotNull] RectTransform viewport) {
+    this.content  = content;
     startPosition = content.position;
-    viewportRect = getWorldRect(viewport);
+    viewportRect  = getWorldRect(transform: viewport);
     Reset();
   }
 
-  private Rect getWorldRect(RectTransform transform) {
+  private Rect getWorldRect([NotNull] RectTransform transform) {
     Vector3[] corners = new Vector3[4];
-    transform.GetWorldCorners(corners);
-    return new Rect (
-      corners [0].x,
-      corners [0].y,
-      corners [2].x - corners [0].x,
-      corners [2].y - corners [0].y);
+    transform.GetWorldCorners(fourCornersArray: corners);
+
+    return new Rect(
+      x: corners[0].x,
+      y: corners[0].y,
+      width: corners[2].x  - corners[0].x,
+      height: corners[2].y - corners[0].y);
   }
 
-  public void Reset() {
+  private void Reset() {
     content.position = startPosition;
-    approaching = true;
+    approaching      = true;
   }
 
   public bool Step(float scale) {
     Vector3 offset = content.position;
-    offset.x += step.x * scale;
-    offset.y += step.y * scale;
-    content.position = offset;
-    if (viewportRect.Overlaps(getWorldRect(content))) {
+    offset.x         += StepSize.x * scale;
+    offset.y         += StepSize.y * scale;
+    content.position =  offset;
+
+    if (viewportRect.Overlaps(other: getWorldRect(transform: content))) {
       approaching = false;
     } else if (!approaching) {
       Reset();
       return false;
     }
+
     return true;
   }
 }

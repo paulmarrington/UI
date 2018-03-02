@@ -12,7 +12,7 @@ public sealed class ScrollerExample : MonoBehaviour {
   private void Start() {
     scroller = new Scroller(viewport: Viewport.GetComponent<RectTransform>(),
                             content: Content.GetComponent<RectTransform>()) {
-      step = {x = -1, y = 1}
+      StepSize = {x = -1, y = 1}
     };
 
     // moves left to right

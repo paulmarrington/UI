@@ -1,13 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Dialog : MonoBehaviour {
-  public Text message;
-  public Button[] buttons;
+public sealed class Dialog : MonoBehaviour {
+  [SerializeField] private Text     message;
+  [SerializeField] private Button[] buttons;
 
-  private string buttonPressed;
   private Canvas canvas;
 
   /*
@@ -15,65 +14,69 @@ public class Dialog : MonoBehaviour {
    * Peculiar since it has the same ID. Probably something to do with it being a prefab.
    * The solution/workaround I chose was to find it when I need it.
    */
-  static public Dialog Instance(string gameObjectName) {
-    GameObject go = GameObject.Find(gameObjectName);
+  [CanBeNull]
+  public static Dialog Instance(string gameObjectName) {
+    GameObject go = GameObject.Find(name: gameObjectName);
+
     if (go == null) {
-      Debug.LogError("Scene requires GameObject '" + gameObjectName + "'");
+      Debug.LogError(message: "Scene requires GameObject '" + gameObjectName + "'");
       return null;
     } else {
       Dialog dialog = go.GetComponent<Dialog>();
+
       if (dialog == null) {
-        Debug.LogError("GameObject '" + gameObjectName + "' must have a Dialog script attached");
+        Debug.LogError(message: "GameObject '" + gameObjectName +
+                                "' must have a Dialog script attached");
       }
+
       return dialog;
     }
   }
 
   public void Start() {
-    canvas = gameObject.GetComponent<Canvas>();
+    canvas       = gameObject.GetComponent<Canvas>();
     message.text = "";
+
     foreach (Button button in buttons) {
       button.GetComponentInChildren<Text>().text = "";
     }
   }
 
-  public void Buttons(params string[] buttonTexts) {
+  private void Buttons(params string[] buttonTexts) {
     for (int i = 0; i < buttons.Length; i++) {
-      if ((i < buttonTexts.Length) && (buttonTexts [i] != null) && (buttonTexts [i].Length > 0)) {
-        buttons [i].gameObject.SetActive(true);
-        buttons [i].GetComponentInChildren<Text>().text = buttonTexts [i];
+      if ((i < buttonTexts.Length) && (buttonTexts[i] != null) && (buttonTexts[i].Length > 0)) {
+        buttons[i].gameObject.SetActive(value: true);
+        buttons[i].GetComponentInChildren<Text>().text = buttonTexts[i];
       } else {
-        buttons [i].gameObject.SetActive(false);
+        buttons[i].gameObject.SetActive(value: false);
       }
     }
   }
 
-  public void PressButton(Button button) {
-    buttonPressed = button.name;
-  }
+  [UsedImplicitly]
+  public void PressButton([NotNull] Button button) { Action = button.name; }
 
-  public void Show(string text, params string[] buttonTexts) {
-    Buttons(buttonTexts);
-    buttonPressed = null;
-    message.text = text;
+  private void Show(string text, params string[] buttonTexts) {
+    Buttons(buttonTexts: buttonTexts);
+    Action         = null;
+    message.text   = text;
     canvas.enabled = true;
   }
 
   public IEnumerator Activate(string text, params string[] buttonTexts) {
-    Show(text, buttonTexts);
+    Show(text: text, buttonTexts: buttonTexts);
     return Wait();
   }
 
-  public void Hide() {
-    canvas.enabled = false;
-  }
+  private void Hide() { canvas.enabled = false; }
 
-  public IEnumerator Wait() {
-    while (buttonPressed == null) {
+  private IEnumerator Wait() {
+    while (Action == null) {
       yield return null;
     }
+
     Hide();
   }
 
-  public string action { get { return buttonPressed; } }
+  public string Action { get; private set; }
 }

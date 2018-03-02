@@ -10,18 +10,18 @@ namespace Sprites {
         return sprite.texture; // not in atlas
       }
 
-      int       x       = (int) System.Math.Ceiling(sprite.textureRect.x);
-      int       y       = (int) System.Math.Ceiling(sprite.textureRect.y);
-      int       width   = (int) System.Math.Ceiling(sprite.textureRect.width);
-      int       height  = (int) System.Math.Ceiling(sprite.textureRect.height);
-      Texture2D texture = new Texture2D(width, height);
-      texture.SetPixels(sprite.texture.GetPixels(x, y, width, height));
+      int       x       = (int) System.Math.Ceiling(a: sprite.textureRect.x);
+      int       y       = (int) System.Math.Ceiling(a: sprite.textureRect.y);
+      int       width   = (int) System.Math.Ceiling(a: sprite.textureRect.width);
+      int       height  = (int) System.Math.Ceiling(a: sprite.textureRect.height);
+      Texture2D texture = new Texture2D(width: width, height: height);
+      texture.SetPixels(colors: sprite.texture.GetPixels(x: x, y: y, blockWidth: width, blockHeight: height));
       texture.Apply();
       return texture;
     }
 
     public static Texture2D Texture([NotNull] SpriteAtlas atlas, string name) {
-      return Texture(atlas.GetSprite(name));
+      return Texture(sprite: atlas.GetSprite(name: name));
     }
 
     [NotNull, UsedImplicitly]

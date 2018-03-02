@@ -10,13 +10,14 @@ public sealed class DialogExample : MonoBehaviour {
 
   private static IEnumerator ActivateDialog() {
     Dialog dialogInstance = Dialog.Instance(gameObjectName: "Dialog Example");
+    if (dialogInstance == null) yield break;
 
     yield return dialogInstance.Activate(
       "<color=#ff000088>Now</color> is the time for all good <b>men</b> to come to the aid of the <i>party</i>",
       "Yes Sir",
       "Not Now");
 
-    switch (dialogInstance.action) {
+    switch (dialogInstance.Action) {
       case "Yes":
         Debug.Log(message: "Affirmative");
         break;
@@ -24,7 +25,7 @@ public sealed class DialogExample : MonoBehaviour {
         Debug.Log(message: "Negative");
         break;
       default:
-        Debug.LogError(message: "Unexpected button: '" + dialogInstance.action + "'");
+        Debug.LogError(message: "Unexpected button: '" + dialogInstance.Action + "'");
         break;
     }
   }
