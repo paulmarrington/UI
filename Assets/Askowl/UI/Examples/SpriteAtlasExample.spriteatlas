@@ -28,19 +28,19 @@ SpriteAtlas:
       enableTightPacking: 0
     variantMultiplier: 1
     packables:
-    - {fileID: 2800000, guid: 3e0338807ab90455a856a92f17a1db7e, type: 3}
-    - {fileID: 2800000, guid: ed3733e493c4744c8a52f2187a3cf50c, type: 3}
-    - {fileID: 2800000, guid: c2986ec28111a4d45b3c9dc1c15f3f2b, type: 3}
-    - {fileID: 2800000, guid: 0059cf75028c945d68ec238950ad8010, type: 3}
-    - {fileID: 2800000, guid: bb0f10a84c37c429495902883a9c4a43, type: 3}
+    - {fileID: 2800000, guid: 386fc61e1a4444443baea87b9198cdfe, type: 3}
+    - {fileID: 2800000, guid: 38d255a9b43064b4ea0f40843fa2164d, type: 3}
+    - {fileID: 2800000, guid: 375d072835f2a454eb83b42c400241cb, type: 3}
+    - {fileID: 2800000, guid: 333e1fc82d2a54302b0be0ac3adcd6fa, type: 3}
+    - {fileID: 2800000, guid: 389e9376f88b944aabcedf147cd4badc, type: 3}
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
-  - {fileID: 21300000, guid: bb0f10a84c37c429495902883a9c4a43, type: 3}
-  - {fileID: 21300000, guid: c2986ec28111a4d45b3c9dc1c15f3f2b, type: 3}
-  - {fileID: 21300000, guid: ed3733e493c4744c8a52f2187a3cf50c, type: 3}
-  - {fileID: 21300000, guid: 0059cf75028c945d68ec238950ad8010, type: 3}
-  - {fileID: 21300000, guid: 3e0338807ab90455a856a92f17a1db7e, type: 3}
+  - {fileID: 21300000, guid: 389e9376f88b944aabcedf147cd4badc, type: 3}
+  - {fileID: 21300000, guid: 375d072835f2a454eb83b42c400241cb, type: 3}
+  - {fileID: 21300000, guid: 38d255a9b43064b4ea0f40843fa2164d, type: 3}
+  - {fileID: 21300000, guid: 333e1fc82d2a54302b0be0ac3adcd6fa, type: 3}
+  - {fileID: 21300000, guid: 386fc61e1a4444443baea87b9198cdfe, type: 3}
   m_PackedSpriteNamesToIndex:
   - Attack_5
   - Attack_3

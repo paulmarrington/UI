@@ -1,7 +1,8 @@
-﻿using JetBrains.Annotations;
+﻿using Askowl.Sprites;
+using JetBrains.Annotations;
 using UnityEngine;
 
-public sealed class SpritesFullScreenExample : Sprites.FullScreen {
+public sealed class SpritesFullScreenExample : FullScreen {
   private void Update() {
     if (Input.GetKeyDown(name: "space")) {
       gameObject.SetActive(value: false);

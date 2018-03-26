@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
-using NUnit.Framework;
-using UnityEngine.U2D;
 using System.Linq;
+using Askowl.Sprites;
 using JetBrains.Annotations;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.U2D;
 
 public sealed class SpritesExample : MonoBehaviour {
   public SpriteAtlas SpriteAtlas;
@@ -12,7 +13,7 @@ public sealed class SpritesExample : MonoBehaviour {
   public void SpritesCacheTest() {
     Assert.NotNull(anObject: SpriteAtlas);
 
-    Sprites.Cache cache = Sprites.Cache.Atlas(atlas: SpriteAtlas);
+    SpriteCache cache = SpriteCache.Atlas(atlas: SpriteAtlas);
 
     Assert.IsTrue(condition: cache.Sprite.ContainsKey(key: "Attack_1"),
                   message: "Attack_1 missing");
@@ -36,13 +37,13 @@ public sealed class SpritesExample : MonoBehaviour {
   public void SpritesContentsTest() {
     Assert.NotNull(anObject: SpriteAtlas);
 
-    Sprites.Cache cache   = Sprites.Cache.Atlas(atlas: SpriteAtlas);
-    Sprite        attack1 = cache.Sprite[key: "Attack_1"];
+    SpriteCache cache   = SpriteCache.Atlas(atlas: SpriteAtlas);
+    Sprite      attack1 = cache.Sprite[key: "Attack_1"];
 
-    Texture2D texture1A = Sprites.Contents.Texture(sprite: attack1);
+    Texture2D texture1A = Askowl.Sprites.Contents.Texture(sprite: attack1);
     Assert.NotNull(anObject: texture1A);
 
-    Texture2D texture1B = Sprites.Contents.Texture(atlas: SpriteAtlas, name: "Attack_1");
+    Texture2D texture1B = Askowl.Sprites.Contents.Texture(atlas: SpriteAtlas, name: "Attack_1");
     Assert.NotNull(anObject: texture1B);
 
     Assert.AreEqual(expected: texture1A.imageContentsHash, actual: texture1B.imageContentsHash);
