@@ -2,6 +2,28 @@
 [TOC]
 > Read the code in the Examples Folder.
 
+##CanvasGroupFader
+A CanvasGroupFader is a MonoBehaviour that you can add as a component to a canvas and any children.
+
+To use it, get a reference to the canvas and call the static functions `CanvasGroupFader.FadeIn(canvas)` and `CanvasGroupFader.FadeOut(canvas)`. If the canvas does not have a CanvasGroupFader component, these functions will enable or disable the canvas. If the canvas has a CanvasGroupFader component, all the child UI elements are scanned and faded in and out in sequence.
+
+![CanvasGroupFader](CanvasGroupFader.png)
+
+For each CanvasGroupFader component, you can set the alpha range and the time it takes to move between them. Only if the minimum alpha is zero will the canvas be disabled.
+
+By using a MonoBehaviour, it would be possible to have a canvas pulse in intensity on an event.
+
+```C#
+IEnumerator Pulse(canvas) {
+  Coroutine waitForOneSecond = new WaitForSeconds(1);
+  for (int i = 0; i < 3; i++) {
+    CanvasGroupFader.FadeIn(canvas);
+    yield return waitForOneSecond;
+    CanvasGroupFader.FadeOut(canvas);
+  }
+}
+```
+
 ## Dialog
 
 ***Dialog.cs*** provides similar functionality to a dialog box on Windows, OS X or the web. It displays some rich text and a series of buttons. You provide the look and feel while ***Dialog.cs*** provides the functionality.
@@ -118,7 +140,7 @@ The Cache class is all about a SpriteAtlas, and a memory leak in Android. Many 2
 
 Due to sprite compression limitations (width and height must be a power of two), keeping the sprite in the project as individual files causes a bloated app. When it exceeds 100Mb, the Google Play Store refuses to accept it.
 
-One solution is to combine all the images into a SpriteAtlas. Unity3D does this automatically. Just give it some files or directories and get a single file to load.
+One solution is to combine all the images into a SpriteAtlas. Unity3D does this automatically. Give it some files or directories and get a single file to load.
 
 Now, if we have a character walking along at 60 frames a second, we are loading 60 sprites from the atlas in a second while cycling through the images that make us the walk animation.
 
@@ -160,4 +182,31 @@ In most normal cases sprites are provided as-is for the 2D application. There ar
     Assert.NotNull(texture1b);
 
     Assert.AreEqual(texture1a.imageContentsHash, texture1b.imageContentsHash);
+```
+
+## TextComponent
+Code that wants to update a text component would normally have to know if that component was of class `Text` or `TextMeshProUGUI`. The problem compounded if there is no TextMeshPro package in the project as the referencing code would fail to compile.
+
+`Askowl.TextComponent` is a MonoBehaviour you can add as a component to a text GameObject. Referencing it instead of the text object allows decoupled access.
+
+![TextComponent](TextComponent.png)
+
+```C#
+    [SerializeField] private TextComponent message;
+    [SerializeField] private Button      button;
+
+    message.text = "Empty";
+    buttons.GetComponentInChildren<TextComponent>().text = "OK";
+```
+
+***Askowl.UI*** includes Unity3D Editor support that adds or removes a preprocessor value `TextMeshPro` based on the existence or not of the package. Use this if you want to do additional processing on the text depending on availability of the TextMeshPro package.
+
+```C#
+#if TextMeshPro
+      tmpComponent = GetComponent<TextMeshProUGUI>();
+
+      if (tmpComponent != null) {
+        tmpComponent.enableKerning = true;
+      }
+#endif
 ```
