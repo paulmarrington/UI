@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using Askowl;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -36,3 +37,4 @@ public sealed class DialogExample : MonoBehaviour {
     }
   }
 }
+#endif

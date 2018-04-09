@@ -1,4 +1,5 @@
-﻿using Askowl;
+﻿#if UNITY_EDITOR
+using Askowl;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -35,3 +36,4 @@ public sealed class ScrollerExample : MonoBehaviour {
     active = true;
   }
 }
+#endif

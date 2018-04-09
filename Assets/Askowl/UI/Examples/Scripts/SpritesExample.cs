@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if UNITY_EDITOR
+using System.Collections.Generic;
 using System.Linq;
 using Askowl.Sprites;
 using JetBrains.Annotations;
@@ -51,3 +52,4 @@ public sealed class SpritesExample : MonoBehaviour {
     Debug.Log(message: "Sprites.Contents works as expected");
   }
 }
+#endif
