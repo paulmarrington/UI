@@ -6,9 +6,8 @@
     using UnityEngine.U2D;
 
     public static class Contents {
-      public static Texture2D Texture([NotNull] Sprite sprite) {
-        Debug.LogWarning("**** Contents:10 (sprite!=null)=" + (sprite != null) +
-                         "  #### DELETE-ME #### 10/4/18 9:38 PM"); //#DM#//
+      public static Texture2D Texture([CanBeNull] Sprite sprite) {
+        if (sprite == null) return null;
 
         if (!sprite.packed) {
           return sprite.texture; // not in atlas
@@ -19,21 +18,11 @@
         int       width   = (int) Math.Ceiling(a: sprite.textureRect.width);
         int       height  = (int) Math.Ceiling(a: sprite.textureRect.height);
         Texture2D texture = new Texture2D(width: width, height: height);
-
-        texture.SetPixels(
-          colors: sprite.texture.GetPixels(x: x, y: y, blockWidth: width, blockHeight: height));
-
-        texture.Apply();
+        texture.SetPixels(sprite.texture.GetPixels(x, y, width, height));
         return texture;
       }
 
       public static Texture2D Texture([NotNull] SpriteAtlas atlas, string name) {
-        Debug.LogWarning("**** Contents:28 atlas.name=" + atlas.name +
-                         "  #### DELETE-ME #### 10/4/18 9:33 PM"); //#DM#//
-
-        Debug.LogWarning("**** Contents:28 name=" + name +
-                         "  #### DELETE-ME #### 10/4/18 9:33 PM"); //#DM#//
-
         return Texture(sprite: atlas.GetSprite(name: name));
       }
 
