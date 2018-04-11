@@ -1,20 +1,23 @@
-﻿using UnityEngine;
-using UnityEngine.U2D;
-
-namespace Askowl {
+﻿namespace Askowl {
   namespace Sprites {
+    using System;
     using JetBrains.Annotations;
+    using UnityEngine;
+    using UnityEngine.U2D;
 
     public static class Contents {
       public static Texture2D Texture([NotNull] Sprite sprite) {
+        Debug.LogWarning("**** Contents:10 (sprite!=null)=" + (sprite != null) +
+                         "  #### DELETE-ME #### 10/4/18 9:38 PM"); //#DM#//
+
         if (!sprite.packed) {
           return sprite.texture; // not in atlas
         }
 
-        int       x       = (int) System.Math.Ceiling(a: sprite.textureRect.x);
-        int       y       = (int) System.Math.Ceiling(a: sprite.textureRect.y);
-        int       width   = (int) System.Math.Ceiling(a: sprite.textureRect.width);
-        int       height  = (int) System.Math.Ceiling(a: sprite.textureRect.height);
+        int       x       = (int) Math.Ceiling(a: sprite.textureRect.x);
+        int       y       = (int) Math.Ceiling(a: sprite.textureRect.y);
+        int       width   = (int) Math.Ceiling(a: sprite.textureRect.width);
+        int       height  = (int) Math.Ceiling(a: sprite.textureRect.height);
         Texture2D texture = new Texture2D(width: width, height: height);
 
         texture.SetPixels(
@@ -25,6 +28,12 @@ namespace Askowl {
       }
 
       public static Texture2D Texture([NotNull] SpriteAtlas atlas, string name) {
+        Debug.LogWarning("**** Contents:28 atlas.name=" + atlas.name +
+                         "  #### DELETE-ME #### 10/4/18 9:33 PM"); //#DM#//
+
+        Debug.LogWarning("**** Contents:28 name=" + name +
+                         "  #### DELETE-ME #### 10/4/18 9:33 PM"); //#DM#//
+
         return Texture(sprite: atlas.GetSprite(name: name));
       }
 
