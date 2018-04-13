@@ -20,6 +20,7 @@
 
         Texture2D texture = new Texture2D(width: width, height: height);
         texture.SetPixels(sprite.texture.GetPixels(x, y, width, height));
+        texture.Apply();
         return texture;
       }
 
