@@ -1,8 +1,12 @@
-# UI Support
-* {:toc}
+---
+title: Askowl UI Helpers for Unity3D
+description: Making UI programming a little bit easier
+---
+* Table of Contents
+{:toc}
 > Read the code in the Examples Folder.
 
-##CanvasGroupFader
+#CanvasGroupFader
 A CanvasGroupFader is a MonoBehaviour that you can add as a component to a canvas and any children.
 
 To use it, get a reference to the canvas and call the static functions `CanvasGroupFader.FadeIn(canvas)` and `CanvasGroupFader.FadeOut(canvas)`. If the canvas does not have a CanvasGroupFader component, these functions will enable or disable the canvas. If the canvas has a CanvasGroupFader component, all the child UI elements are scanned and faded in and out in sequence.
@@ -13,7 +17,7 @@ For each CanvasGroupFader component, you can set the alpha range and the time it
 
 By using a MonoBehaviour, it would be possible to have a canvas pulse in intensity on an event.
 
-```C#
+```c#
 IEnumerator Pulse(canvas) {
   Coroutine waitForOneSecond = new WaitForSeconds(1);
   for (int i = 0; i < 3; i++) {
@@ -24,11 +28,11 @@ IEnumerator Pulse(canvas) {
 }
 ```
 
-## Dialog
+# Dialog
 
 ***Dialog.cs*** provides similar functionality to a dialog box on Windows, OS X or the web. It displays some rich text and a series of buttons. You provide the look and feel while ***Dialog.cs*** provides the functionality.
 
-### The Dialog GameObject
+## The Dialog GameObject
 
 Drag the sample prefab in *Askowl-UI/Examples/Prefab* and modify it to make your own.
 
@@ -40,25 +44,25 @@ In this prefab, the root game object is a canvas with the ***Dialog*** script at
 
 Everything else is just icing. The screen cover makes the dialogue modal. Game action will continue behind unless you change the time scale to zero. In this example, two buttons are set by the script while the dialogue box has room for three buttons. The third remains hidden.
 
-### Using the *Dialog* Script
+## Using the *Dialog* Script
 
 Fetch an instance of the dialogue script when you need it. Do not cache it.
 
-```C#
+```c#
 Dialog dialog = Dialog.Instance("Dialog Example");
 ```
 
  This function will return *null* if it can't find the named game object or the dialogue script attached. The log receives an error message.
 
-#### Synchronous Activation
+### Synchronous Activation
 
 Most of the time you will want to display a message and wait for the player to respond by pressing one of the buttons. `Activate` takes one string for the news and one for each button to be displayed. Run inside a coroutine.
 
-```C#
+```c#
 yield return dialog.Activate(message, "Yes Sir", "Not Now");
 ```
 
-#### Asynchronous Display
+### Asynchronous Display
 
 If your use case requires other processing, such as terminating after a specific time without a response, use `Show`, `action` and `Hide`.
 
@@ -70,11 +74,11 @@ while (dialog.action == null && Time.realtimeSinceStartup < endTime) {
 }
 ```
 
-#### Acting on Player Response
+### Acting on Player Response
 
 `Dialog.action`is a string containing the name of the game object that is the pressed button. Note that it is not the text of the button as that may change.
 
-```C#
+```c#
 if (dialog.action == "Yes") {
   Debug.Log("Affirmative");
 } else if (dialog.action == "No") {
@@ -86,7 +90,7 @@ if (dialog.action == "Yes") {
 
 And that is all there is to it. Have fun.
 
-## Scroller
+# Scroller
 
 A ```Scroller``` is a class that allows a content 2D rectangular region to move through a viewport rectangle in a defined direction and at a defined speed.
 
@@ -96,7 +100,7 @@ To have the content visible only in the viewport, give the viewport panel a ***R
 
 The MonoBehaviour ```Start``` method creates a new scroller from the RectTransform of the components provided. I then set the stepping so that the content will move up and left at 45 degrees. Using pixels per second means that the speed will vary drastically between displays of different resolutions.
 
-```C#
+```c#
 public class ScrollerExample : MonoBehaviour {
 
   public GameObject viewport;
@@ -132,9 +136,9 @@ public class ScrollerExample : MonoBehaviour {
 
 To have the content follow a non-linear path, recalculate the step after each update. Note that ```scroller.Step``` returns true while the content approaches or is in the viewport.
 
-## Sprites
+# Sprites
 
-### Cache
+## Cache
 
 The Cache class is all about a SpriteAtlas, and a memory leak in Android. Many 2D games use a series of images to create animation. 
 
@@ -150,7 +154,7 @@ The symptom is an app that quits and goes back to the Android front page without
 
 Don't ask how long it took me to track this little fellow down. Fortunately caching the sprites resolves the issue.
 
-```C#
+```c#
 public SpriteAtlas spriteAtlas;
 
 Sprite.Cache atlas;
@@ -167,11 +171,11 @@ Sprite getSprite(string name) {
 }
 ```
 
-### Contents
+## Contents
 
 In most normal cases sprites are provided as-is for the 2D application. There are cases where you need the texture the asset contains using `sprite.texture`. For one in an atlas, however, this will point the atlas. Internal sprite-aware processes use the member `TextureRect` for the offset. Great, but a pure `Texture2D` does not have an offset. The example below extracts a texture by reference or atlas/name.
 
-```C#
+```c#
     Sprites.Cache cache = Sprites.Cache.Atlas(spriteAtlas);
     Sprite attack1 = cache.sprite ["Attack_1"];
 
@@ -184,14 +188,14 @@ In most normal cases sprites are provided as-is for the 2D application. There ar
     Assert.AreEqual(texture1a.imageContentsHash, texture1b.imageContentsHash);
 ```
 
-## TextComponent
+# TextComponent
 Code that wants to update a text component would normally have to know if that component was of class `Text` or `TextMeshProUGUI`. The problem compounded if there is no TextMeshPro package in the project as the referencing code would fail to compile.
 
 `Askowl.TextComponent` is a MonoBehaviour you can add as a component to a text GameObject. Referencing it instead of the text object allows decoupled access.
 
 ![TextComponent](TextComponent.png)
 
-```C#
+```c#
     [SerializeField] private TextComponent message;
     [SerializeField] private Button      button;
 
@@ -201,12 +205,12 @@ Code that wants to update a text component would normally have to know if that c
 
 ***Askowl.UI*** includes Unity3D Editor support that adds or removes a preprocessor value `TextMeshPro` based on the existence or not of the package. Use this if you want to do additional processing on the text depending on availability of the TextMeshPro package.
 
-```C#
-#if TextMeshPro
+```c#
+if TextMeshPro
       tmpComponent = GetComponent<TextMeshProUGUI>();
 
       if (tmpComponent != null) {
         tmpComponent.enableKerning = true;
       }
-#endif
+endif
 ```
