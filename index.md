@@ -1,5 +1,5 @@
 ---
 redirect_to:
-  - /Assets/Askowl-UI/Documentation/Askowl-UI
+  - /Assets/Askowl/UI/Documentation/Askowl-UI
 ---
 
