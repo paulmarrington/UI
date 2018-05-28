@@ -8,6 +8,10 @@ namespace Askowl {
   using UnityEngine;
   using UnityEngine.UI;
 
+  /// <inheritdoc />
+  /// <summary>
+  /// Script support for a custom dialog-box prefab.
+  /// </summary>
   public sealed class Dialog : MonoBehaviour {
     [SerializeField] private Textual  message;
     [SerializeField] private Button[] buttons;
@@ -19,7 +23,11 @@ namespace Askowl {
      * Peculiar since it has the same ID. Probably something to do with it being a prefab.
      * The solution/workaround I chose was to find it when I need it.
      */
-    [CanBeNull]
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="gameObjectName"></param>
+    /// <returns></returns>
     public static Dialog Instance(string gameObjectName) {
       GameObject go = GameObject.Find(name: gameObjectName);
 
@@ -30,15 +38,14 @@ namespace Askowl {
         Dialog dialog = go.GetComponent<Dialog>();
 
         if (dialog == null) {
-          Debug.LogError(message: "GameObject '" + gameObjectName +
-                                  "' must have a Dialog script attached");
+          Debug.LogError("GameObject '" + gameObjectName + "' must have a Dialog script attached");
         }
 
         return dialog;
       }
     }
 
-    public void Start() {
+    private void Start() {
       canvas         = gameObject.GetComponent<Canvas>();
       canvas.enabled = false;
       message.text   = "";
@@ -59,8 +66,12 @@ namespace Askowl {
       }
     }
 
+    /// <summary>
+    /// Called by prefab when a button on the dialog-box is pressed
+    /// </summary>
+    /// <param name="button">Name of button component in prefab</param>
     [UsedImplicitly]
-    public void PressButton([NotNull] Button button) { Action = button.name; }
+    public void PressButton(Button button) { Action = button.name; }
 
     private void Show(string text, params string[] buttonTexts) {
       Buttons(buttonTexts: buttonTexts);
@@ -69,8 +80,14 @@ namespace Askowl {
       CanvasGroupFader.FadeIn(canvas);
     }
 
+    /// <summary>
+    /// Coroutine to display a dialog box and only return once we have user interaction.
+    /// </summary>
+    /// <param name="text">Text to display in the dialog box</param>
+    /// <param name="buttonTexts">List of the text to put on the buttons - assigned in the same order as the buttons are in the prefab</param>
+    /// <returns></returns>
     public IEnumerator Activate(string text, params string[] buttonTexts) {
-      Show(text: text, buttonTexts: buttonTexts);
+      Show(text, buttonTexts);
       return Wait();
     }
 
@@ -84,6 +101,9 @@ namespace Askowl {
       Hide();
     }
 
+    /// <summary>
+    /// Result of a button press - being the name of the button component (not the text on it)
+    /// </summary>
     public string Action { get; private set; }
   }
 }
