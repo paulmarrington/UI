@@ -1,12 +1,16 @@
-﻿namespace Askowl {
+﻿// Copyright 2018 (C) paul@marrington.net http://www.askowl.net/unity-packages
+
+using Decoupled;
+
+namespace Askowl {
   using System.Collections;
   using JetBrains.Annotations;
   using UnityEngine;
   using UnityEngine.UI;
 
   public sealed class Dialog : MonoBehaviour {
-    [SerializeField] private TextComponent message;
-    [SerializeField] private Button[]      buttons;
+    [SerializeField] private Textual  message;
+    [SerializeField] private Button[] buttons;
 
     private Canvas canvas;
 
@@ -40,7 +44,7 @@
       message.text   = "";
 
       foreach (Button button in buttons) {
-        button.GetComponentInChildren<TextComponent>().text = "";
+        button.GetComponentInChildren<Textual>().text = "";
       }
     }
 
@@ -48,7 +52,7 @@
       for (int i = 0; i < buttons.Length; i++) {
         if ((i < buttonTexts.Length) && (buttonTexts[i] != null) && (buttonTexts[i].Length > 0)) {
           buttons[i].gameObject.SetActive(value: true);
-          buttons[i].GetComponentInChildren<TextComponent>().text = buttonTexts[i];
+          buttons[i].GetComponentInChildren<Textual>().text = buttonTexts[i];
         } else {
           buttons[i].gameObject.SetActive(value: false);
         }

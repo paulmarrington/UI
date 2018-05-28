@@ -28,14 +28,6 @@
         return Texture(sprite: atlas.GetSprite(name));
       }
 
-      public static void SetTexture(UITexture uiTexture, SpriteAtlas atlas, string name) {
-        Sprite sprite = atlas.GetSprite(name);
-        if (sprite == null) return;
-
-        uiTexture.mainTexture = sprite.texture;
-        uiTexture.uvRect      = sprite.textureRect;
-      }
-
       [NotNull, UsedImplicitly]
       public static string ToString([NotNull] Sprite sprite, string separator = ", ") {
         string s = separator;
