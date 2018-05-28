@@ -21,24 +21,18 @@
       childCanvasGroupFaders = GetComponentsInChildren<CanvasGroupFader>();
     }
 
-    [CanBeNull]
-    // ReSharper disable once UnusedMember.Global
-    public static Coroutine FadeIn([NotNull] Canvas canvas) {
-      CanvasGroupFader canvasGroupFader = canvas.GetComponent<CanvasGroupFader>();
-      if (canvasGroupFader != null) return canvasGroupFader.FadeIn();
-
+    public static Coroutine FadeIn(Canvas canvas) {
+      CanvasGroupFader[] canvasGroupFaders = canvas.GetComponentsInChildren<CanvasGroupFader>();
       canvas.enabled = true;
+      return (canvasGroupFaders.Length == 0) ? null : canvasGroupFaders[0].FadeIn();
+
       return null;
     }
 
-    [CanBeNull]
-    // ReSharper disable once UnusedMember.Global
-    public static Coroutine FadeOut([NotNull] Canvas canvas) {
-      CanvasGroupFader canvasGroupFader = canvas.GetComponent<CanvasGroupFader>();
-      if (canvasGroupFader != null) return canvasGroupFader.FadeOut();
-
+    public static Coroutine FadeOut(Canvas canvas) {
+      CanvasGroupFader[] canvasGroupFaders = canvas.GetComponentsInChildren<CanvasGroupFader>();
       canvas.enabled = false;
-      return null;
+      return (canvasGroupFaders.Length == 0) ? null : canvasGroupFaders[0].FadeOut();
     }
 
     private Coroutine FadeIn() { return StartCoroutine(FadeInChildCanvasGroups()); }
@@ -57,23 +51,12 @@
       }
     }
 
-    private void SetActive(bool active) {
-      if (canvas != null) {
-        canvas.enabled = active;
-      } else {
-        gameObject.SetActive(active);
-      }
-    }
-
     private IEnumerator FadeInCanvasGroup() {
-      SetActive(true);
       yield return FadeCanvasGroup(startAlpha: lowAlpha, endAlpha: highAlpha);
     }
 
     private IEnumerator FadeOutCanvasGroup() {
       yield return FadeCanvasGroup(startAlpha: highAlpha, endAlpha: lowAlpha);
-
-      if (lowAlpha < 0.1) SetActive(false);
     }
 
     private IEnumerator FadeCanvasGroup(float startAlpha, float endAlpha) {
