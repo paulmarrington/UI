@@ -1550,25 +1550,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteAtlas: {fileID: 4343727234628468602, guid: eada5009721ec4ed48a29f7d7ba925ab,
     type: 2}
---- !u!1 &1486538329 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1311103925683228, guid: fe42531ed7b2341ccb64cc969c60cb1a,
-    type: 2}
-  m_PrefabInternal: {fileID: 1638372136}
---- !u!114 &1486538330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1486538329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09fafd262b1a442fc924454466424d35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lowAlpha: 0
-  highAlpha: 1
-  overTimeInSeconds: 0.5
 --- !u!1 &1553961804
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,46 +1875,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114073200279954436, guid: fe42531ed7b2341ccb64cc969c60cb1a,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114073200279954436, guid: fe42531ed7b2341ccb64cc969c60cb1a,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114688014010797988, guid: fe42531ed7b2341ccb64cc969c60cb1a,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114688014010797988, guid: fe42531ed7b2341ccb64cc969c60cb1a,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114638911300715828, guid: fe42531ed7b2341ccb64cc969c60cb1a,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114638911300715828, guid: fe42531ed7b2341ccb64cc969c60cb1a,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114188194457241156, guid: fe42531ed7b2341ccb64cc969c60cb1a,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114188194457241156, guid: fe42531ed7b2341ccb64cc969c60cb1a,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fe42531ed7b2341ccb64cc969c60cb1a, type: 2}

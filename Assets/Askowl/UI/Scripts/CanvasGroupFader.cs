@@ -9,12 +9,10 @@
     [SerializeField] private float highAlpha         = 1;
     [SerializeField] private float overTimeInSeconds = 1;
 
-    private Canvas             canvas;
     private CanvasGroup        canvasGroup;
     private CanvasGroupFader[] childCanvasGroupFaders;
 
     private void Awake() {
-      canvas      = GetComponent<Canvas>();
       canvasGroup = GetComponent<CanvasGroup>();
       if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
       canvasGroup.alpha      = 0;
@@ -25,8 +23,6 @@
       CanvasGroupFader[] canvasGroupFaders = canvas.GetComponentsInChildren<CanvasGroupFader>();
       canvas.enabled = true;
       return (canvasGroupFaders.Length == 0) ? null : canvasGroupFaders[0].FadeIn();
-
-      return null;
     }
 
     public static Coroutine FadeOut(Canvas canvas) {
