@@ -34,6 +34,14 @@ public class NewTestScript : PlayModeTests {
     yield return Setup();
     yield return PushButton("Sprites.Contents");
 
+    LogAssert.Expect(LogType.Log, "Sprites.Contents works as expected");
+  }
+
+  [UnityTest]
+  public IEnumerator SpriteFullScreenTest() {
+    yield return Setup();
+    yield return PushButton("Full Screen Example Button");
+
     throw new NotImplementedException();
   }
 
