@@ -14,20 +14,15 @@ public sealed class ScrollerExample : MonoBehaviour {
   private void Start() {
     scroller = new Scroller(viewport: Viewport.GetComponent<RectTransform>(),
                             content: Content.GetComponent<RectTransform>()) {
-      StepSize = {x = -1, y = 1}
+      StepSize = {x = -1, y = 1} // moves left to right, bottom to top
     };
-
-    // moves left to right
-    // moves bottom to top
   }
 
   private void Update() {
-    if (active) {
-      if (!scroller.Step(scale: PixelsPerSecond * Time.fixedUnscaledDeltaTime)) {
-        Viewport.SetActive(value: false);
-        active = false;
-      }
-    }
+    if (!active || scroller.Step(PixelsPerSecond)) return;
+
+    Viewport.SetActive(value: false);
+    active = false;
   }
 
   [UsedImplicitly]

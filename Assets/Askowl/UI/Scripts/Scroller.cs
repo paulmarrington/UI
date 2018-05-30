@@ -3,22 +3,21 @@ namespace Askowl {
   using UnityEngine;
 
   public sealed class Scroller {
-    private readonly RectTransform content;
+    private RectTransform content;
 
     public Vector2 StepSize = new Vector2(x: 0, y: 0);
 
-    private readonly Vector3 startPosition;
-    private          bool    approaching;
-    private          Rect    viewportRect;
+    private Vector3 startPosition;
+    private bool    approaching;
+    private Rect    viewportRect;
 
-    public Scroller([NotNull] RectTransform content, [NotNull] RectTransform viewport) {
-      this.content  = content;
-      startPosition = content.position;
-      viewportRect  = getWorldRect(transform: viewport);
-      Reset();
+    public Scroller(GameObject content, GameObject viewport) {
+      Reset(content.GetComponent<RectTransform>(), viewport.GetComponent<RectTransform>());
     }
 
-    private Rect getWorldRect([NotNull] RectTransform transform) {
+    public Scroller(RectTransform content, RectTransform viewport) { Reset(content, viewport); }
+
+    private Rect getWorldRect(RectTransform transform) {
       Vector3[] corners = new Vector3[4];
       transform.GetWorldCorners(fourCornersArray: corners);
 
@@ -29,9 +28,20 @@ namespace Askowl {
         height: corners[2].y - corners[0].y);
     }
 
+    public void Reset(RectTransform content, RectTransform viewport) {
+      this.content  = content;
+      startPosition = content.position;
+      viewportRect  = getWorldRect(transform: viewport);
+      Reset();
+    }
+
     public void Reset() {
       content.position = startPosition;
       approaching      = true;
+    }
+
+    public bool Step(int pixelsPerSecond) {
+      return Step(pixelsPerSecond * Time.fixedUnscaledDeltaTime);
     }
 
     public bool Step(float scale) {

@@ -3,6 +3,8 @@
     using UnityEngine;
 
     public class FullScreen : MonoBehaviour {
+      [SerializeField] private bool overFill = true;
+
       private void Awake() {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -12,9 +14,11 @@
         Vector3 scale        = transform.localScale;
         float   xScale       = cameraSize.x / spriteSize.x;
         float   yScale       = cameraSize.y / spriteSize.y;
-        scale                *= (xScale > yScale) ? xScale : yScale;
-        transform.position   =  Vector2.zero; // Optional
-        transform.localScale =  scale;
+
+        scale *= (overFill ? (xScale > yScale) : (xScale < yScale)) ? xScale : yScale;
+
+        transform.position   = Vector2.zero; // Optional
+        transform.localScale = scale;
       }
     }
   }

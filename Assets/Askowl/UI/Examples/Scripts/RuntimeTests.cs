@@ -15,7 +15,10 @@ public class NewTestScript : PlayModeTests {
     yield return Setup();
     yield return PushButton("Scroller");
 
-    throw new NotImplementedException();
+    Transform content = FindGameObject("Scroller Content").transform;
+    float first = content.transform.position.x;
+    yield return null;
+    Assert.AreNotEqual(first, content.transform.position.x);
   }
 
   [UnityTest]
@@ -40,9 +43,17 @@ public class NewTestScript : PlayModeTests {
   [UnityTest]
   public IEnumerator SpriteFullScreenTest() {
     yield return Setup();
-    yield return PushButton("Full Screen Example Button");
 
-    throw new NotImplementedException();
+    SpriteRenderer spriteRenderer = Component<SpriteRenderer>("SpriteToFill");
+    Assert.NotNull(spriteRenderer);
+
+    float   cameraHeight = Camera.main.orthographicSize * 2;
+    Vector2 cameraSize   = new Vector2(x: Camera.main.aspect * cameraHeight, y: cameraHeight);
+    Vector2 spriteSize   = spriteRenderer.sprite.bounds.size;
+
+    Assert.IsTrue(
+      (Math.Abs((spriteSize * spriteRenderer.transform.localScale).x - cameraSize.x) < 0.1) ||
+      (Math.Abs((spriteSize * spriteRenderer.transform.localScale).y - cameraSize.y) < 0.1));
   }
 
   [UnityTest]
