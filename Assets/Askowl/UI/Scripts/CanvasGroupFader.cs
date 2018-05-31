@@ -27,13 +27,20 @@
 
     public static Coroutine FadeOut(Canvas canvas) {
       CanvasGroupFader[] canvasGroupFaders = canvas.GetComponentsInChildren<CanvasGroupFader>();
-      canvas.enabled = false;
-      return (canvasGroupFaders.Length == 0) ? null : canvasGroupFaders[0].FadeOut();
+
+      if (canvasGroupFaders.Length == 0) {
+        canvas.enabled = false;
+        return null;
+      }
+
+      return canvasGroupFaders[0].FadeOutAll(canvas);
     }
 
     private Coroutine FadeIn() { return StartCoroutine(FadeInChildCanvasGroups()); }
 
-    private Coroutine FadeOut() { return StartCoroutine(FadeOutChildCanvasGroups()); }
+    private Coroutine FadeOutAll(Canvas canvas) {
+      return StartCoroutine(FadeOutChildCanvasGroups(canvas));
+    }
 
     private IEnumerator FadeInChildCanvasGroups() {
       for (int i = 0; i < childCanvasGroupFaders.Length; i++) {
@@ -41,10 +48,12 @@
       }
     }
 
-    private IEnumerator FadeOutChildCanvasGroups() {
+    private IEnumerator FadeOutChildCanvasGroups(Canvas canvas) {
       for (int i = childCanvasGroupFaders.Length - 1; i >= 0; i--) {
         yield return childCanvasGroupFaders[i].FadeOutCanvasGroup();
       }
+
+      canvas.enabled = false;
     }
 
     private IEnumerator FadeInCanvasGroup() {

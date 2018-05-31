@@ -57,19 +57,39 @@ public class NewTestScript : PlayModeTests {
       (Math.Abs((spriteSize * spriteRenderer.transform.localScale).y - cameraSize.y) < 0.1));
   }
 
-  [UnityTest]
+  [UnityTest, Timeout(10000)]
   public IEnumerator DialogExampleTest() {
     yield return Setup();
+
+    Canvas canvas = Component<Canvas>("Dialog Example");
+    Assert.IsTrue(!canvas.isActiveAndEnabled);
     yield return PushButton("Dialog Example Button");
 
-    throw new NotImplementedException();
+    while (!canvas.isActiveAndEnabled) yield return null;
+
+    Button yes = Component<Button>("Dialog Example", "Yes");
+    yield return PushButton(yes);
+
+    LogAssert.Expect(LogType.Log, "Affirmative");
   }
 
-  [UnityTest]
+  [UnityTest, Timeout(10000)]
   public IEnumerator FaderExampleTest() {
     yield return Setup();
-    yield return PushButton("Fader ExampleButton");
 
-    throw new NotImplementedException();
+    Canvas canvas = Component<Canvas>("Fader Example");
+    Assert.IsTrue(!canvas.isActiveAndEnabled);
+    yield return PushButton("Fader Example Button");
+
+    while (!canvas.isActiveAndEnabled) yield return null;
+
+    Button yes = Component<Button>("Fader Example", "Yes");
+
+    float start = Time.realtimeSinceStartup;
+    yield return PushButton(yes);
+
+    while (canvas.isActiveAndEnabled) yield return null;
+
+    Assert.Greater(Time.realtimeSinceStartup - start, 0.5);
   }
 }

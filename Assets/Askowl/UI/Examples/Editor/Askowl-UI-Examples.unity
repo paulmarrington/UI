@@ -770,6 +770,10 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1716658552468436, guid: 02bc3819e88424fedb198847a755c341, type: 2}
+      propertyPath: m_Name
+      value: Button Panel
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 02bc3819e88424fedb198847a755c341, type: 2}
   m_IsPrefabParent: 0
