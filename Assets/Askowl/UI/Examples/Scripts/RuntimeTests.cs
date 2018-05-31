@@ -16,8 +16,9 @@ public class NewTestScript : PlayModeTests {
     yield return PushButton("Scroller");
 
     Transform content = FindGameObject("Scroller Content").transform;
-    float first = content.transform.position.x;
+    float     first   = content.transform.position.x;
     yield return null;
+
     Assert.AreNotEqual(first, content.transform.position.x);
   }
 
