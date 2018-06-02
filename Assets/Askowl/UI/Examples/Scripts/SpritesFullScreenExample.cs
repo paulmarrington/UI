@@ -10,7 +10,7 @@ public sealed class SpritesFullScreenExample : FullScreen {
     }
   }
 
-  [UsedImplicitly]
+  
   public void ShowFullScreen() { gameObject.SetActive(value: !gameObject.activeSelf); }
 }
 #endif

@@ -70,7 +70,7 @@ namespace Askowl {
     /// Called by prefab when a button on the dialog-box is pressed
     /// </summary>
     /// <param name="button">Name of button component in prefab</param>
-    [UsedImplicitly]
+    
     public void PressButton(Button button) { Action = button.name; }
 
     private void Show(string text, params string[] buttonTexts) {

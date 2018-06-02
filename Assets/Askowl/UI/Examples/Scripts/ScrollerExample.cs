@@ -25,7 +25,7 @@ public sealed class ScrollerExample : MonoBehaviour {
     active = false;
   }
 
-  [UsedImplicitly]
+  
   public void ButtonPressed() {
     Viewport.SetActive(value: true);
     active = true;

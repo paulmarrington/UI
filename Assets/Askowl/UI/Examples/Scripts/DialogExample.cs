@@ -7,10 +7,10 @@ using UnityEngine;
 public sealed class DialogExample : MonoBehaviour {
   private Dialog dialog;
 
-  [UsedImplicitly]
+  
   public void DialogButtonPressed() { StartCoroutine(routine: ActivateDialog("Dialog Example")); }
 
-  [UsedImplicitly]
+  
   public void FaderButtonPressed() { StartCoroutine(routine: ActivateDialog("Fader Example")); }
 
   private static IEnumerator ActivateDialog(string dialogName) {

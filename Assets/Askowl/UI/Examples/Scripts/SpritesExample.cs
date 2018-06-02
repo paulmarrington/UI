@@ -10,7 +10,7 @@ using UnityEngine.U2D;
 public sealed class SpritesExample : MonoBehaviour {
   public SpriteAtlas SpriteAtlas;
 
-  [UsedImplicitly]
+  
   public void SpritesCacheTest() {
     Assert.NotNull(anObject: SpriteAtlas);
 
@@ -34,7 +34,7 @@ public sealed class SpritesExample : MonoBehaviour {
     Debug.Log(message: "Sprites.Cache works as expected");
   }
 
-  [UsedImplicitly]
+  
   public void SpritesContentsTest() {
     Assert.NotNull(anObject: SpriteAtlas);
 
