@@ -4,10 +4,10 @@ using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
 using System.Text.RegularExpressions;
-using CustomAsset;
+using Askowl;
 using UnityEngine.UI;
 
-public class NewTestScript : PlayModeTests {
+internal class RuntimeTests : PlayModeTests {
   private IEnumerator Setup() { yield return LoadScene("Askowl-UI-Examples"); }
 
   [UnityTest]
