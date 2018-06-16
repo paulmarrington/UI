@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR && AskowlUI
+using System;
 using UnityEngine;
 using UnityEngine.TestTools;
 using NUnit.Framework;
@@ -16,7 +17,7 @@ internal class RuntimeTests : PlayModeTests {
     yield return PushButton("Scroller");
 
     Transform content = FindGameObject("Scroller Content").transform;
-    float     first   = content.transform.position.x;
+    float     first = content.transform.position.x;
     yield return null;
 
     Assert.AreNotEqual(first, content.transform.position.x);
@@ -49,8 +50,8 @@ internal class RuntimeTests : PlayModeTests {
     Assert.NotNull(spriteRenderer);
 
     float   cameraHeight = Camera.main.orthographicSize * 2;
-    Vector2 cameraSize   = new Vector2(x: Camera.main.aspect * cameraHeight, y: cameraHeight);
-    Vector2 spriteSize   = spriteRenderer.sprite.bounds.size;
+    Vector2 cameraSize = new Vector2(x: Camera.main.aspect * cameraHeight, y: cameraHeight);
+    Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
 
     Assert.IsTrue(
       (Math.Abs((spriteSize * spriteRenderer.transform.localScale).x - cameraSize.x) < 0.1) ||
@@ -93,3 +94,4 @@ internal class RuntimeTests : PlayModeTests {
     Assert.Greater(Time.realtimeSinceStartup - start, 0.5);
   }
 }
+#endif

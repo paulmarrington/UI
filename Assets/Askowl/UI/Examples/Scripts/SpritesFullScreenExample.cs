@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && AskowlUI
 using Askowl.Sprites;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -10,7 +10,7 @@ public sealed class SpritesFullScreenExample : FullScreen {
     }
   }
 
-  
+
   public void ShowFullScreen() { gameObject.SetActive(value: !gameObject.activeSelf); }
 }
 #endif

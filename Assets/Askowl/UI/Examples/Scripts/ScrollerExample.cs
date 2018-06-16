@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && AskowlUI
 using Askowl;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -25,7 +25,7 @@ public sealed class ScrollerExample : MonoBehaviour {
     active = false;
   }
 
-  
+
   public void ButtonPressed() {
     Viewport.SetActive(value: true);
     active = true;

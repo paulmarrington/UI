@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && AskowlUI
 using System.Collections.Generic;
 using System.Linq;
 using Askowl.Sprites;
@@ -10,7 +10,7 @@ using UnityEngine.U2D;
 public sealed class SpritesExample : MonoBehaviour {
   public SpriteAtlas SpriteAtlas;
 
-  
+
   public void SpritesCacheTest() {
     Assert.NotNull(anObject: SpriteAtlas);
 
@@ -34,7 +34,7 @@ public sealed class SpritesExample : MonoBehaviour {
     Debug.Log(message: "Sprites.Cache works as expected");
   }
 
-  
+
   public void SpritesContentsTest() {
     Assert.NotNull(anObject: SpriteAtlas);
 

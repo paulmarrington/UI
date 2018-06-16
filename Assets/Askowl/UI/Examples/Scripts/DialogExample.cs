@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR && AskowlUI
 using System.Collections;
 using Askowl;
 using JetBrains.Annotations;
@@ -7,10 +7,10 @@ using UnityEngine;
 public sealed class DialogExample : MonoBehaviour {
   private Dialog dialog;
 
-  
+
   public void DialogButtonPressed() { StartCoroutine(routine: ActivateDialog("Dialog Example")); }
 
-  
+
   public void FaderButtonPressed() { StartCoroutine(routine: ActivateDialog("Fader Example")); }
 
   private static IEnumerator ActivateDialog(string dialogName) {
