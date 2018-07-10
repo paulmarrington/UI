@@ -1,0 +1,10 @@
+{
+    "name": "UI",
+    "references": [
+        "Decoupler"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
