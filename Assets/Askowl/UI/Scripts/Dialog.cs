@@ -55,7 +55,7 @@ namespace Askowl {
       }
     }
 
-    private void Buttons(params string[] buttonTexts) {
+    private void Buttons(){//params string[] buttonTexts) {
       for (int i = 0; i < buttons.Length; i++) {
         if ((i < buttonTexts.Length) && (buttonTexts[i] != null) && (buttonTexts[i].Length > 0)) {
           buttons[i].gameObject.SetActive(value: true);
@@ -73,7 +73,7 @@ namespace Askowl {
     
     public void PressButton(Button button) { Action = button.name; }
 
-    private void Show(string text, params string[] buttonTexts) {
+    private void Show(string text, ){//params string[] buttonTexts) {
       Buttons(buttonTexts: buttonTexts);
       Action       = null;
       message.text = text;
@@ -86,7 +86,7 @@ namespace Askowl {
     /// <param name="text">Text to display in the dialog box</param>
     /// <param name="buttonTexts">List of the text to put on the buttons - assigned in the same order as the buttons are in the prefab</param>
     /// <returns></returns>
-    public IEnumerator Activate(string text, params string[] buttonTexts) {
+    public IEnumerator Activate(string text, ){//params string[] buttonTexts) {
       Show(text, buttonTexts);
       return Wait();
     }
