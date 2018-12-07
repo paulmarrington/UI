@@ -1,19 +1,14 @@
 ﻿// Copyright 2018 (C) paul@marrington.net http://www.askowl.net/unity-packages
 
+using System.Collections;
 using Decoupled;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Askowl {
-  using System.Collections;
-  using JetBrains.Annotations;
-  using UnityEngine;
-  using UnityEngine.UI;
-
-  /// <inheritdoc />
-  /// <summary>
-  /// Script support for a custom dialog-box prefab.
-  /// </summary>
+  /// <a href="">Script support for a custom dialog-box prefab</a> //#TBD#// <inheritdoc />
   public sealed class Dialog : MonoBehaviour {
-    [SerializeField] private Textual  message;
+    [SerializeField] private Textual message;
     [SerializeField] private Button[] buttons;
 
     private Canvas canvas;
@@ -23,18 +18,15 @@ namespace Askowl {
      * Peculiar since it has the same ID. Probably something to do with it being a prefab.
      * The solution/workaround I chose was to find it when I need it.
      */
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="gameObjectName"></param>
-    /// <returns></returns>
+    /// <a href=""></a> //#TBD#//
     public static Dialog Instance(string gameObjectName) {
       GameObject go = GameObject.Find(name: gameObjectName);
 
       if (go == null) {
         Debug.LogError(message: "Scene requires GameObject '" + gameObjectName + "'");
         return null;
-      } else {
+      }
+      else {
         Dialog dialog = go.GetComponent<Dialog>();
 
         if (dialog == null) {
@@ -46,21 +38,22 @@ namespace Askowl {
     }
 
     private void Start() {
-      canvas         = gameObject.GetComponent<Canvas>();
+      canvas = gameObject.GetComponent<Canvas>();
       canvas.enabled = false;
-      message.text   = "";
+      message.text = "";
 
       foreach (Button button in buttons) {
         button.GetComponentInChildren<Textual>().text = "";
       }
     }
 
-    private void Buttons(){//params string[] buttonTexts) {
-      for (int i = 0; i < buttons.Length; i++) {
-        if ((i < buttonTexts.Length) && (buttonTexts[i] != null) && (buttonTexts[i].Length > 0)) {
+    private void Buttons(params string[] buttonTexts) {
+      for (var i = 0; i < buttons.Length; i++) {
+        if (i < buttonTexts.Length && buttonTexts[i] != null && buttonTexts[i].Length > 0) {
           buttons[i].gameObject.SetActive(value: true);
           buttons[i].GetComponentInChildren<Textual>().text = buttonTexts[i];
-        } else {
+        }
+        else {
           buttons[i].gameObject.SetActive(value: false);
         }
       }
@@ -70,12 +63,11 @@ namespace Askowl {
     /// Called by prefab when a button on the dialog-box is pressed
     /// </summary>
     /// <param name="button">Name of button component in prefab</param>
-    
-    public void PressButton(Button button) { Action = button.name; }
+    public void PressButton(Button button) => Action = button.name;
 
-    private void Show(string text, ){//params string[] buttonTexts) {
+    private void Show(string text, params string[] buttonTexts) {
       Buttons(buttonTexts: buttonTexts);
-      Action       = null;
+      Action = null;
       message.text = text;
       CanvasGroupFader.FadeIn(canvas);
     }
@@ -86,18 +78,15 @@ namespace Askowl {
     /// <param name="text">Text to display in the dialog box</param>
     /// <param name="buttonTexts">List of the text to put on the buttons - assigned in the same order as the buttons are in the prefab</param>
     /// <returns></returns>
-    public IEnumerator Activate(string text, ){//params string[] buttonTexts) {
+    public IEnumerator Activate(string text, params string[] buttonTexts) {
       Show(text, buttonTexts);
       return Wait();
     }
 
-    private void Hide() { CanvasGroupFader.FadeOut(canvas); }
+    private void Hide() => CanvasGroupFader.FadeOut(canvas);
 
     private IEnumerator Wait() {
-      while (Action == null) {
-        yield return null;
-      }
-
+      while (Action == null) yield return null;
       Hide();
     }
 

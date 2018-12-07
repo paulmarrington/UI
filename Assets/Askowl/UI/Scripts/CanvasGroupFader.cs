@@ -1,30 +1,32 @@
 ﻿namespace Askowl {
   using System.Collections;
-  using JetBrains.Annotations;
   using UnityEngine;
 
+  /// <a href=""></a> //#TBD#//
   public sealed class CanvasGroupFader : MonoBehaviour {
     // ReSharper disable once RedundantDefaultMemberInitializer
-    [SerializeField] private float lowAlpha          = 0;
-    [SerializeField] private float highAlpha         = 1;
+    [SerializeField] private float lowAlpha = 0;
+    [SerializeField] private float highAlpha = 1;
     [SerializeField] private float overTimeInSeconds = 1;
 
-    private CanvasGroup        canvasGroup;
+    private CanvasGroup canvasGroup;
     private CanvasGroupFader[] childCanvasGroupFaders;
 
     private void Awake() {
       canvasGroup = GetComponent<CanvasGroup>();
       if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
-      canvasGroup.alpha      = 0;
+      canvasGroup.alpha = 0;
       childCanvasGroupFaders = GetComponentsInChildren<CanvasGroupFader>();
     }
 
+    /// <a href=""></a> //#TBD#//
     public static Coroutine FadeIn(Canvas canvas) {
       CanvasGroupFader[] canvasGroupFaders = canvas.GetComponentsInChildren<CanvasGroupFader>();
       canvas.enabled = true;
-      return (canvasGroupFaders.Length == 0) ? null : canvasGroupFaders[0].FadeIn();
+      return canvasGroupFaders.Length == 0 ? null : canvasGroupFaders[0].FadeIn();
     }
 
+    /// <a href=""></a> //#TBD#//
     public static Coroutine FadeOut(Canvas canvas) {
       CanvasGroupFader[] canvasGroupFaders = canvas.GetComponentsInChildren<CanvasGroupFader>();
 
@@ -36,14 +38,12 @@
       return canvasGroupFaders[0].FadeOutAll(canvas);
     }
 
-    private Coroutine FadeIn() { return StartCoroutine(FadeInChildCanvasGroups()); }
+    private Coroutine FadeIn() => StartCoroutine(FadeInChildCanvasGroups());
 
-    private Coroutine FadeOutAll(Canvas canvas) {
-      return StartCoroutine(FadeOutChildCanvasGroups(canvas));
-    }
+    private Coroutine FadeOutAll(Canvas canvas) => StartCoroutine(FadeOutChildCanvasGroups(canvas));
 
     private IEnumerator FadeInChildCanvasGroups() {
-      for (int i = 0; i < childCanvasGroupFaders.Length; i++) {
+      for (var i = 0; i < childCanvasGroupFaders.Length; i++) {
         yield return childCanvasGroupFaders[i].FadeInCanvasGroup();
       }
     }
