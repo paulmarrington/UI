@@ -1,11 +1,13 @@
-﻿namespace Askowl {
-  namespace Sprites {
-    using System;
-    using JetBrains.Annotations;
-    using UnityEngine;
-    using UnityEngine.U2D;
+﻿using System;
+using JetBrains.Annotations;
+using UnityEngine;
+using UnityEngine.U2D;
 
+namespace Askowl {
+  namespace Sprites {
+    /// <a href=""></a> //#TBD#//
     public static class Contents {
+      /// <a href=""></a> //#TBD#//
       public static Texture2D Texture([CanBeNull] Sprite sprite) {
         if (sprite == null) return null;
 
@@ -24,10 +26,11 @@
         return texture;
       }
 
-      public static Texture2D Texture([NotNull] SpriteAtlas atlas, string name) {
-        return Texture(sprite: atlas.GetSprite(name));
-      }
+      /// <a href=""></a> //#TBD#//
+      public static Texture2D Texture([NotNull] SpriteAtlas atlas, string name) =>
+        Texture(sprite: atlas.GetSprite(name));
 
+      /// <a href=""></a> //#TBD#//
       [NotNull, UsedImplicitly]
       public static string ToString([NotNull] Sprite sprite, string separator = ", ") {
         string s = separator;

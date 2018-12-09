@@ -1,29 +1,29 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.U2D;
-using System;
-using System.Linq;
 
 namespace Askowl {
   namespace Sprites {
-    using JetBrains.Annotations;
-
+    /// <a href=""></a> //#TBD#//
     public sealed class SpriteCache {
-      private static readonly Dictionary<string, SpriteCache> Atlases =
-        new Dictionary<string, SpriteCache>();
+      private static readonly Dictionary<string, SpriteCache> atlases = new Dictionary<string, SpriteCache>();
 
+      /// <a href=""></a> //#TBD#//
       public readonly Dictionary<string, Sprite> Sprite = new Dictionary<string, Sprite>();
 
-      public static SpriteCache Atlas([NotNull] SpriteAtlas atlas) {
-        if (Atlases.ContainsKey(key: atlas.name)) return Atlases[key: atlas.name];
+      /// <a href=""></a> //#TBD#//
+      public static SpriteCache Atlas(SpriteAtlas atlas) {
+        if (atlases.ContainsKey(key: atlas.name)) return atlases[key: atlas.name];
 
         SpriteCache cache = new SpriteCache(atlas: atlas);
-        Atlases.Add(key: atlas.name, value: cache);
+        atlases.Add(key: atlas.name, value: cache);
 
-        return Atlases[key: atlas.name];
+        return atlases[key: atlas.name];
       }
 
-      private SpriteCache([NotNull] SpriteAtlas atlas) {
+      private SpriteCache(SpriteAtlas atlas) {
         Sprite[] sprites = new Sprite[atlas.spriteCount];
         atlas.GetSprites(sprites: sprites);
 
@@ -38,9 +38,9 @@ namespace Askowl {
         }
       }
 
-      public override string ToString() {
-        return string.Join(separator: ",", value: Sprite.Select(selector: d => d.Key).ToArray());
-      }
+      /// <a href=""></a> //#TBD#//
+      public override string ToString()
+        => string.Join(separator: ",", value: Sprite.Select(selector: d => d.Key).ToArray());
     }
   }
 }

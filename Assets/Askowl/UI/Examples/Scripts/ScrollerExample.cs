@@ -1,12 +1,17 @@
 ﻿#if UNITY_EDITOR && AskowlUI
 using Askowl;
-using JetBrains.Annotations;
 using UnityEngine;
 
+/// <a href=""></a> //#TBD#//
 public sealed class ScrollerExample : MonoBehaviour {
+  /// <a href=""></a> //#TBD#//
   public GameObject Viewport;
+
+  /// <a href=""></a> //#TBD#//
   public GameObject Content;
-  public int        PixelsPerSecond = 100;
+
+  /// <a href=""></a> //#TBD#//
+  public int PixelsPerSecond = 100;
 
   private Scroller scroller;
   private bool     active;
@@ -26,6 +31,7 @@ public sealed class ScrollerExample : MonoBehaviour {
   }
 
 
+  /// <a href=""></a> //#TBD#//
   public void ButtonPressed() {
     Viewport.SetActive(value: true);
     active = true;

@@ -5,17 +5,17 @@
   /// <a href=""></a> //#TBD#//
   public sealed class CanvasGroupFader : MonoBehaviour {
     // ReSharper disable once RedundantDefaultMemberInitializer
-    [SerializeField] private float lowAlpha = 0;
-    [SerializeField] private float highAlpha = 1;
+    [SerializeField] private float lowAlpha          = 0;
+    [SerializeField] private float highAlpha         = 1;
     [SerializeField] private float overTimeInSeconds = 1;
 
-    private CanvasGroup canvasGroup;
+    private CanvasGroup        canvasGroup;
     private CanvasGroupFader[] childCanvasGroupFaders;
 
     private void Awake() {
       canvasGroup = GetComponent<CanvasGroup>();
       if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
-      canvasGroup.alpha = 0;
+      canvasGroup.alpha      = 0;
       childCanvasGroupFaders = GetComponentsInChildren<CanvasGroupFader>();
     }
 

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace Askowl {
   /// <a href="">Script support for a custom dialog-box prefab</a> //#TBD#// <inheritdoc />
   public sealed class Dialog : MonoBehaviour {
-    [SerializeField] private Textual message;
+    [SerializeField] private Textual  message;
     [SerializeField] private Button[] buttons;
 
     private Canvas canvas;
@@ -38,9 +38,9 @@ namespace Askowl {
     }
 
     private void Start() {
-      canvas = gameObject.GetComponent<Canvas>();
+      canvas         = gameObject.GetComponent<Canvas>();
       canvas.enabled = false;
-      message.text = "";
+      message.text   = "";
 
       foreach (Button button in buttons) {
         button.GetComponentInChildren<Textual>().text = "";
@@ -67,7 +67,7 @@ namespace Askowl {
 
     private void Show(string text, params string[] buttonTexts) {
       Buttons(buttonTexts: buttonTexts);
-      Action = null;
+      Action       = null;
       message.text = text;
       CanvasGroupFader.FadeIn(canvas);
     }

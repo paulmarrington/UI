@@ -9,8 +9,8 @@ namespace Askowl {
     public Vector2 StepSize = new Vector2(x: 0, y: 0);
 
     private Vector3 startPosition;
-    private bool approaching;
-    private Rect viewportRect;
+    private bool    approaching;
+    private Rect    viewportRect;
 
     /// <a href=""></a> //#TBD#//
     public Scroller(GameObject content, GameObject viewport) =>
@@ -27,22 +27,22 @@ namespace Askowl {
       return new Rect(
         x: corners[0].x,
         y: corners[0].y,
-        width: corners[2].x - corners[0].x,
+        width: corners[2].x  - corners[0].x,
         height: corners[2].y - corners[0].y);
     }
 
     /// <a href=""></a> //#TBD#//
     public void Reset(RectTransform contentTransform, RectTransform viewport) {
-      content = contentTransform;
+      content       = contentTransform;
       startPosition = contentTransform.position;
-      viewportRect = getWorldRect(transform: viewport);
+      viewportRect  = getWorldRect(transform: viewport);
       Reset();
     }
 
     /// <a href=""></a> //#TBD#//
     public void Reset() {
       content.position = startPosition;
-      approaching = true;
+      approaching      = true;
     }
 
     /// <a href=""></a> //#TBD#//
@@ -51,9 +51,9 @@ namespace Askowl {
     /// <a href=""></a> //#TBD#//
     public bool Step(float scale) {
       Vector3 offset = content.position;
-      offset.x += StepSize.x * scale;
-      offset.y += StepSize.y * scale;
-      content.position = offset;
+      offset.x         += StepSize.x * scale;
+      offset.y         += StepSize.y * scale;
+      content.position =  offset;
 
       if (viewportRect.Overlaps(other: getWorldRect(transform: content))) {
         approaching = false;

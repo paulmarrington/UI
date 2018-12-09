@@ -1,15 +1,17 @@
 ﻿#if UNITY_EDITOR && AskowlUI
 using System;
-using UnityEngine;
-using UnityEngine.TestTools;
-using NUnit.Framework;
 using System.Collections;
 using System.Text.RegularExpressions;
 using Askowl;
+using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
 using UnityEngine.UI;
 
 internal class RuntimeTests : PlayModeTests {
-  private IEnumerator Setup() { yield return LoadScene("Askowl-UI-Examples"); }
+  private IEnumerator Setup() {
+    yield return LoadScene("Askowl-UI-Examples");
+  }
 
   [UnityTest]
   public IEnumerator ScrollerExampleTest() {
@@ -17,7 +19,7 @@ internal class RuntimeTests : PlayModeTests {
     yield return PushButton("Scroller");
 
     Transform content = FindGameObject("Scroller Content").transform;
-    float     first = content.transform.position.x;
+    float     first   = content.transform.position.x;
     yield return null;
 
     Assert.AreNotEqual(first, content.transform.position.x);
@@ -49,9 +51,10 @@ internal class RuntimeTests : PlayModeTests {
     SpriteRenderer spriteRenderer = Component<SpriteRenderer>("SpriteToFill");
     Assert.NotNull(spriteRenderer);
 
+    // ReSharper disable once PossibleNullReferenceException
     float   cameraHeight = Camera.main.orthographicSize * 2;
-    Vector2 cameraSize = new Vector2(x: Camera.main.aspect * cameraHeight, y: cameraHeight);
-    Vector2 spriteSize = spriteRenderer.sprite.bounds.size;
+    Vector2 cameraSize   = new Vector2(x: Camera.main.aspect * cameraHeight, y: cameraHeight);
+    Vector2 spriteSize   = spriteRenderer.sprite.bounds.size;
 
     Assert.IsTrue(
       (Math.Abs((spriteSize * spriteRenderer.transform.localScale).x - cameraSize.x) < 0.1) ||
@@ -68,7 +71,7 @@ internal class RuntimeTests : PlayModeTests {
 
     while (!canvas.isActiveAndEnabled) yield return null;
 
-    Button yes = Component<Button>("Dialog Example", "Yes");
+    Button yes = Component<Button>("Dialog Example/Yes");
     yield return PushButton(yes);
 
     LogAssert.Expect(LogType.Log, "Affirmative");
@@ -84,7 +87,7 @@ internal class RuntimeTests : PlayModeTests {
 
     while (!canvas.isActiveAndEnabled) yield return null;
 
-    Button yes = Component<Button>("Fader Example", "Yes");
+    Button yes = Component<Button>("Fader Example/Yes");
 
     float start = Time.realtimeSinceStartup;
     yield return PushButton(yes);
