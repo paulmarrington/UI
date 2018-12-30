@@ -2,7 +2,8 @@
 using Askowl.Sprites;
 using UnityEngine;
 
-/// <a href=""></a> //#TBD#//
+// ReSharper disable MissingXmlDoc
+
 public sealed class SpritesFullScreenExample : FullScreen {
   private void Update() {
     if (Input.GetKeyDown(name: "space")) {
@@ -10,8 +11,6 @@ public sealed class SpritesFullScreenExample : FullScreen {
     }
   }
 
-
-  /// <a href=""></a> //#TBD#//
   public void ShowFullScreen() => gameObject.SetActive(value: !gameObject.activeSelf);
 }
 #endif

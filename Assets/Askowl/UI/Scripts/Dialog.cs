@@ -8,8 +8,8 @@ using UnityEngine.UI;
 namespace Askowl {
   /// <a href="">Script support for a custom dialog-box prefab</a> //#TBD#// <inheritdoc />
   public sealed class Dialog : MonoBehaviour {
-    [SerializeField] private Textual  message;
-    [SerializeField] private Button[] buttons;
+    [SerializeField] private Textual  message = default;
+    [SerializeField] private Button[] buttons = default;
 
     private Canvas canvas;
 
@@ -25,8 +25,7 @@ namespace Askowl {
       if (go == null) {
         Debug.LogError(message: "Scene requires GameObject '" + gameObjectName + "'");
         return null;
-      }
-      else {
+      } else {
         Dialog dialog = go.GetComponent<Dialog>();
 
         if (dialog == null) {
@@ -49,11 +48,10 @@ namespace Askowl {
 
     private void Buttons(params string[] buttonTexts) {
       for (var i = 0; i < buttons.Length; i++) {
-        if (i < buttonTexts.Length && buttonTexts[i] != null && buttonTexts[i].Length > 0) {
+        if ((i < buttonTexts.Length) && (buttonTexts[i] != null) && (buttonTexts[i].Length > 0)) {
           buttons[i].gameObject.SetActive(value: true);
           buttons[i].GetComponentInChildren<Textual>().text = buttonTexts[i];
-        }
-        else {
+        } else {
           buttons[i].gameObject.SetActive(value: false);
         }
       }

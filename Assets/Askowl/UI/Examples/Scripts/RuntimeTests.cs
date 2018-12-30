@@ -9,60 +9,55 @@ using UnityEngine.TestTools;
 using UnityEngine.UI;
 
 internal class RuntimeTests : PlayModeTests {
-  private IEnumerator Setup() {
-    yield return LoadScene("Askowl-UI-Examples");
-  }
+  private IEnumerator Setup() { yield return LoadScene("Askowl-UI-Examples"); }
 
-  [UnityTest]
-  public IEnumerator ScrollerExampleTest() {
+  [UnityTest] public IEnumerator ScrollerExampleTest() {
     yield return Setup();
     yield return PushButton("Scroller");
 
-    Transform content = FindGameObject("Scroller Content").transform;
-    float     first   = content.transform.position.x;
-    yield return null;
-
+    var   content = FindGameObject("Scroller Content");
+    float first   = content.transform.position.x;
+    yield return new WaitForSeconds(0.2f);
+    // ReSharper disable once Unity.InefficientPropertyAccess
     Assert.AreNotEqual(first, content.transform.position.x);
   }
 
-  [UnityTest]
-  public IEnumerator SpriteCacheExampleTest() {
+  [UnityTest] public IEnumerator SpriteCacheExampleTest() {
     yield return Setup();
     yield return PushButton("Sprites.Cache");
 
-    LogAssert.Expect(LogType.Log, new Regex(
-                       @"Atlas contains: Attack_\d, Attack_\d, Attack_\d, Attack_\d, Attack_\d"));
+    LogAssert.Expect(LogType.Log, new Regex(@"Atlas contains: Attack_\d, Attack_\d, Attack_\d, Attack_\d, Attack_\d"));
 
     LogAssert.Expect(LogType.Log, "Sprites.Cache works as expected");
   }
 
-  [UnityTest]
-  public IEnumerator SpriteContentsExampleTest() {
+  [UnityTest] public IEnumerator SpriteContentsExampleTest() {
     yield return Setup();
     yield return PushButton("Sprites.Contents");
 
     LogAssert.Expect(LogType.Log, "Sprites.Contents works as expected");
   }
 
-  [UnityTest]
-  public IEnumerator SpriteFullScreenTest() {
+  [UnityTest] public IEnumerator SpriteFullScreenTest() {
     yield return Setup();
 
     SpriteRenderer spriteRenderer = Component<SpriteRenderer>("SpriteToFill");
     Assert.NotNull(spriteRenderer);
 
     // ReSharper disable once PossibleNullReferenceException
-    float   cameraHeight = Camera.main.orthographicSize * 2;
-    Vector2 cameraSize   = new Vector2(x: Camera.main.aspect * cameraHeight, y: cameraHeight);
+    var main = Camera.main;
+    Assert.IsNotNull(main);
+    float   cameraHeight = main.orthographicSize * 2;
+    Vector2 cameraSize   = new Vector2(x: main.aspect * cameraHeight, y: cameraHeight);
     Vector2 spriteSize   = spriteRenderer.sprite.bounds.size;
 
+    var localScale = spriteRenderer.transform.localScale;
     Assert.IsTrue(
-      (Math.Abs((spriteSize * spriteRenderer.transform.localScale).x - cameraSize.x) < 0.1) ||
-      (Math.Abs((spriteSize * spriteRenderer.transform.localScale).y - cameraSize.y) < 0.1));
+      (Math.Abs((spriteSize * localScale).x - cameraSize.x) < 0.1) ||
+      (Math.Abs((spriteSize * localScale).y - cameraSize.y) < 0.1));
   }
 
-  [UnityTest, Timeout(10000)]
-  public IEnumerator DialogExampleTest() {
+  [UnityTest, Timeout(10000)] public IEnumerator DialogExampleTest() {
     yield return Setup();
 
     Canvas canvas = Component<Canvas>("Dialog Example");
@@ -77,8 +72,7 @@ internal class RuntimeTests : PlayModeTests {
     LogAssert.Expect(LogType.Log, "Affirmative");
   }
 
-  [UnityTest, Timeout(10000)]
-  public IEnumerator FaderExampleTest() {
+  [UnityTest, Timeout(10000)] public IEnumerator FaderExampleTest() {
     yield return Setup();
 
     Canvas canvas = Component<Canvas>("Fader Example");

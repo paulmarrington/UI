@@ -3,21 +3,14 @@ using System.Collections;
 using Askowl;
 using UnityEngine;
 
-/// <a href=""></a> //#TBD#//
+// ReSharper disable MissingXmlDoc
+
 public sealed class DialogExample : MonoBehaviour {
   private Dialog dialog;
 
+  public void DialogButtonPressed() => StartCoroutine(routine: ActivateDialog("Dialog Example"));
 
-  /// <a href=""></a> //#TBD#//
-  public void DialogButtonPressed() {
-    StartCoroutine(routine: ActivateDialog("Dialog Example"));
-  }
-
-
-  /// <a href=""></a> //#TBD#//
-  public void FaderButtonPressed() {
-    StartCoroutine(routine: ActivateDialog("Fader Example"));
-  }
+  public void FaderButtonPressed() => StartCoroutine(routine: ActivateDialog("Fader Example"));
 
   private static IEnumerator ActivateDialog(string dialogName) {
     Dialog dialogInstance = Dialog.Instance(dialogName);

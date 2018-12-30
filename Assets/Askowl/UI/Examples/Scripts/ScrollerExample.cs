@@ -2,38 +2,34 @@
 using Askowl;
 using UnityEngine;
 
-/// <a href=""></a> //#TBD#//
+// ReSharper disable MissingXmlDoc
+
 public sealed class ScrollerExample : MonoBehaviour {
-  /// <a href=""></a> //#TBD#//
-  public GameObject Viewport;
+  public GameObject viewport;
 
-  /// <a href=""></a> //#TBD#//
-  public GameObject Content;
+  public GameObject content;
 
-  /// <a href=""></a> //#TBD#//
-  public int PixelsPerSecond = 100;
+  public int pixelsPerSecond = 100;
 
   private Scroller scroller;
   private bool     active;
 
-  private void Start() {
-    scroller = new Scroller(viewport: Viewport.GetComponent<RectTransform>(),
-                            content: Content.GetComponent<RectTransform>()) {
+  private void Start() =>
+    scroller = new Scroller(
+      viewport: viewport.GetComponent<RectTransform>(),
+      content: content.GetComponent<RectTransform>()) {
       StepSize = {x = -1, y = 1} // moves left to right, bottom to top
     };
-  }
 
   private void Update() {
-    if (!active || scroller.Step(PixelsPerSecond)) return;
+    if (!active || scroller.Step(pixelsPerSecond)) return;
 
-    Viewport.SetActive(value: false);
+    viewport.SetActive(value: false);
     active = false;
   }
 
-
-  /// <a href=""></a> //#TBD#//
   public void ButtonPressed() {
-    Viewport.SetActive(value: true);
+    viewport.SetActive(value: true);
     active = true;
   }
 }

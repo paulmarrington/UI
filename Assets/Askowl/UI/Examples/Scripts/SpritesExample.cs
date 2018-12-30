@@ -6,26 +6,27 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.U2D;
 
-/// <a href=""></a> //#TBD#//
+// ReSharper disable MissingXmlDoc
+
 public sealed class SpritesExample : MonoBehaviour {
-  /// <a href=""></a> //#TBD#//
-  public SpriteAtlas SpriteAtlas;
+  public SpriteAtlas spriteAtlas;
 
-
-  /// <a href=""></a> //#TBD#//
   public void SpritesCacheTest() {
-    Assert.NotNull(anObject: SpriteAtlas);
+    Assert.NotNull(anObject: spriteAtlas);
 
-    SpriteCache cache = SpriteCache.Atlas(atlas: SpriteAtlas);
+    SpriteCache cache = SpriteCache.Atlas(atlas: spriteAtlas);
 
-    Assert.IsTrue(condition: cache.Sprite.ContainsKey(key: "Attack_1"),
-                  message: "Attack_1 missing");
+    Assert.IsTrue(
+      condition: cache.Sprite.ContainsKey(key: "Attack_1"),
+      message: "Attack_1 missing");
 
-    Assert.IsFalse(condition: cache.Sprite.ContainsKey(key: "Attack_6"),
-                   message: "Attack_6 exists");
+    Assert.IsFalse(
+      condition: cache.Sprite.ContainsKey(key: "Attack_6"),
+      message: "Attack_6 exists");
 
-    Assert.AreEqual(expected: cache.Sprite[key: "Attack_1"].name, actual: "Attack_1",
-                    message: "Sprite Name incorrect");
+    Assert.AreEqual(
+      expected: cache.Sprite[key: "Attack_1"].name, actual: "Attack_1",
+      message: "Sprite Name incorrect");
 
     string sprites = string.Join(
       separator: ", ",
@@ -36,18 +37,16 @@ public sealed class SpritesExample : MonoBehaviour {
     Debug.Log("Sprites.Cache works as expected");
   }
 
-
-  /// <a href=""></a> //#TBD#//
   public void SpritesContentsTest() {
-    Assert.NotNull(anObject: SpriteAtlas);
+    Assert.NotNull(anObject: spriteAtlas);
 
-    SpriteCache cache   = SpriteCache.Atlas(atlas: SpriteAtlas);
+    SpriteCache cache   = SpriteCache.Atlas(atlas: spriteAtlas);
     Sprite      attack1 = cache.Sprite[key: "Attack_1"];
 
     Texture2D texture1A = Contents.Texture(sprite: attack1);
     Assert.NotNull(anObject: texture1A);
 
-    Texture2D texture1B = Contents.Texture(atlas: SpriteAtlas, name: "Attack_1");
+    Texture2D texture1B = Contents.Texture(atlas: spriteAtlas, name: "Attack_1");
     Assert.NotNull(anObject: texture1B);
 
     Assert.AreEqual(expected: texture1A.imageContentsHash, actual: texture1B.imageContentsHash);
