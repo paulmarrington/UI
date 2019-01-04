@@ -17,8 +17,7 @@ namespace Askowl {
       Reset(content.GetComponent<RectTransform>(), viewport.GetComponent<RectTransform>());
 
     /// <a href=""></a> //#TBD#//
-    public Scroller(RectTransform content, RectTransform viewport) =>
-      Reset(content, viewport);
+    public Scroller(RectTransform content, RectTransform viewport) => Reset(content, viewport);
 
     private Rect getWorldRect(RectTransform transform) {
       Vector3[] corners = new Vector3[4];
@@ -57,8 +56,7 @@ namespace Askowl {
 
       if (viewportRect.Overlaps(other: getWorldRect(transform: content))) {
         approaching = false;
-      }
-      else if (!approaching) {
+      } else if (!approaching) {
         Reset();
         return false;
       }
