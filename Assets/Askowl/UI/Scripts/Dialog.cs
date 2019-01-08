@@ -2,6 +2,7 @@
 
 using System.Collections;
 using Decoupled;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -92,5 +93,13 @@ namespace Askowl {
     /// Result of a button press - being the name of the button component (not the text on it)
     /// </summary>
     public string Action { get; private set; }
+
+    /// <a href=""></a> //#TBD#//
+    [MenuItem("GameObject/Create Dialog Skeleton")]
+    public static void CreateDialogSkeleton() {
+      var prefab     = Resources.Load("DialogSkeleton");
+      var gameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+      gameObject.name = prefab.name;
+    }
   }
 }
