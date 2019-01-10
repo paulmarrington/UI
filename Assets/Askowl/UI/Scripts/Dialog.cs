@@ -94,6 +94,7 @@ namespace Askowl {
     /// </summary>
     public string Action { get; private set; }
 
+    #if UNITY_EDITOR
     /// <a href=""></a> //#TBD#//
     [MenuItem("GameObject/Create Dialog Skeleton")]
     public static void CreateDialogSkeleton() {
@@ -101,5 +102,6 @@ namespace Askowl {
       var gameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
       gameObject.name = prefab.name;
     }
+    #endif
   }
 }
