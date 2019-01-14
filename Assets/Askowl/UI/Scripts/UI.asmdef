@@ -1,8 +1,7 @@
 {
     "name": "UI",
     "references": [
-        "Able",
-        "Decoupler"
+        "Able"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
